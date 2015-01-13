@@ -194,6 +194,76 @@ The SocialRadar SDK expects the API token to be included in all API requests to 
 You must replace `<yourApiTokenHere>` with your app's API key.
 </aside>
 
+# SocialRadar Location Manager
+
+Now that you've implemented the SocialRadar Location Manager, you’re able to obtain location data on demand.
+
+The location data you will receive is a CLLocation object returning a refined coordinate for the user’s current position.
+
+There are two methods of returning data: single point request and continuous streaming. 
+
+## Single Location Point Request
+
+> To quickly obtain the user’s most recent location point, execute the following:
+
+```objective_c
+[SocialRadar.sharedInstance getLocationWithCompletionHandler:^(CLLocation *location, NSError *error) {
+    if (error == nil) {
+        NSLog(@"%.6f, %.6f, %@", location.coordinate.latitude, location.coordinate.longitude, location.timestamp);
+    } else {
+        NSLog(@"Error: %@", error);
+    }
+}];
+```
+
+Single point requests do not increase battery consumption rates.
+
+You will quickly receive the user's most recent location point to the provided handler.
+
+## Continuous Stream of Location Point Updates
+
+> To start streaming location tracking, use the following (substitute the *SRActivityTypeRunning* with the activity tracking option you require):
+
+```objective_c
+[SocialRadar.sharedInstance startMonitoringActivityType:SRActivityTypeRunning updateHandler:^(CLLocation *location, NSError *error) {
+    if (error == nil) {
+        NSLog(@"Activity location %@", location);
+    } else {
+        NSLog(@"Activity error %@", error);
+    }
+}];
+```
+
+> To stop streaming location tracking, use the following:
+
+```objective_c
+[SocialRadar.sharedInstance stopMonitoringActivityType];
+```
+
+Streaming location Streaming location data Streaming location data is available when a continuous real-time feed of location data is required. 
+
+The SocialRadar SDK offers location data streams optimized by user.
+
+Selecting the right user activity type when initiating streaming location tracking ensures the right algorithm is used to refine the GPS data.
+
+If you’re unsure which activity type to track, choose SRActivityTypeRunning – this will provide accurate GPS data useful for most activity tracking requirements.
+
+The SRActivityType defines the activity you wish to track. Each type is optimized for processing speed, battery life and accuracy. The activity types offered are:
+
+* **SRActivityTypeLowPower** – suitable for continuous very low power GPS signaling (3.3%/hour on average). New location signals will arrive every 1-2 seconds when moving, less frequently if not moving.
+* **SRActivityTypeWalking** — suitable for general fitness, sports, and walking <15mph.
+* **SRActivityTypeRunning** – tracking for activity speeds <25mph.
+* **SRActivityTypeCycling** – tracking for speeds <40mph on land and water.
+* **SRActivityTypeDriving** – automotive tracking with ‘snap-to-road’.
+
+The location object will update as new location data becomes available. This data will include both highly refined and lightly refined data points suitable for mapping an activity.
+
+In order to minimize battery usage, it is recommended that you enable the continuous stream only for the period your app needs that type of GPS update and disable it when that is no longer needed.
+
+For example, for an app that tracks runs, start continuous updates when the user starts their run and stop when the user indicates their run is finished.
+
+Stopping activity tracking will not stop the SocialRadar SDK -- it only stops the activity type tracking you have chosen. Note, only one activity tracking function will operate at any time.
+
 # Downloads
 
 ## iOS
