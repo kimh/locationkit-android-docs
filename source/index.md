@@ -6,7 +6,7 @@ language_tabs:
   - java: Android
 
 toc_footers:
-  - <a href='mailto:sdk@socialradar.com'>Contact us for an API Token</a>
+  - <a href='mailto:sdk@socialradar.com'>Email us for an API Token</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
