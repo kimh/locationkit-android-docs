@@ -82,7 +82,7 @@ In the project target's **Capabilities** section, enable **Background Modes** an
 
 ![Enable Location Updates](images/background_modes.png)
 
-## 4. Initialize the SocialRadar Location Manager within your app
+## 4. Initialize
 
 > For example, if you launch your Apple location manager services from within **AppDelegate.m**, add the following line above the **@implementation** section:
 
@@ -109,7 +109,7 @@ Remember to replace `<yourAPITokenHere>` with the API token supplied to you by S
 The return result of `[SocialRadar sharedInstance]` will be nil if called before the `[SocialRadar initializeWithApiToken:@"<yourApiTokenHere>"]` method is invoked.
 
 
-## 5. Configuring location services permissions for your app
+## 5. Configuring permissions
 
 > We recommend the following InfoPlist.strings file configuration (adjust the language as required by your app):
 
@@ -125,9 +125,9 @@ The return result of `[SocialRadar sharedInstance]` will be nil if called before
 ```
 
 
-Using SocialRadar Location Manager requires the consumer to receive an informational message explaining how location services will be used within the app. 
+Using SocialRadar Location Manager requires the consumer to receive an informational message explaining how location services will be used within the app.
 
-That informational message is contained in the Info.plist or the InfoPlist.strings file. 
+That informational message is contained in the Info.plist or the InfoPlist.strings file.
 
 ![Info plist for Location permission popup](images/info_plist.png)
 
@@ -138,7 +138,7 @@ If successfully implemented, the consumer will receive a standard location servi
 If the consumer chooses not to authorize location services, SocialRadar Location Manager will suspend activity until the consumer authorizes location services.
 
 
-## 6. Test your implementation of the SDK
+## 6. Ensuring it works
 
 > Enable **Developer Diagnostics** by placing the following code immediately following the SDK initialization code:
 
