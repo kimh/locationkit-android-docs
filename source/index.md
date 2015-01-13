@@ -186,7 +186,7 @@ import SocialRadar
 
 The SocialRadar SDK uses API tokens to allow access to the API.
 
-Until our developer portal is finished (coming soon!), you can get an API token my emailing [sdk@socialradar.com](mailto:sdk@socialradar.com)
+Until our developer portal is finished (coming soon!), you can get an API token by emailing [sdk@socialradar.com](mailto:sdk@socialradar.com)
 
 The SocialRadar SDK expects the API token to be included in all API requests to the server and without one, the server will reject requests.
 
