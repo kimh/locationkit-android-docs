@@ -6,11 +6,10 @@ language_tabs:
   - java: Android
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
+  - <a href='mailto:sdk@socialradar.com'>Contact us for an API Token</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
-  - errors
 
 search: true
 ---
@@ -195,114 +194,39 @@ The SocialRadar SDK expects the API token to be included in all API requests to 
 You must replace `<yourApiTokenHere>` with your app's API key.
 </aside>
 
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Isis",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
-]
-```
-
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/3"
-  -H "Authorization: meowmeowmeow"
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "id": 2,
-  "name": "Isis",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
-}
-```
-
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">If you're not using an administrator API key, note that some kittens will return 403 Forbidden if they are hidden for admins only.</aside>
-
-### HTTP Request
-
-`GET http://example.com/kittens/<ID>`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID of the cat to retrieve
-
 # Downloads
 
-Download the SocialRadar SDK here
+## iOS
+
+### CocoaPod
+
+The SocialRadar SDK (iOS) can be easily installed from CocoaPods.
+
+1. Add the following to your Podfile: `pod 'SocialRadarSDK'`
+1. Close your project in Xcode and update it by running `pod install` from **Terminal** in your project directory
+1. Open your project in Xcode and perform a Clean build
+
+### Manual Download
+
+* SocialRadar SDK
+  * [1.3.5](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.5.zip)
+  * [1.3.2](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.2.zip)
+  * [1.3.0](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.0.zip)
+  * [1.2.8](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.8.zip)
+  * [1.2.7](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.7.zip)
+  * [1.2.6](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.6.zip)
+  * [1.2.5](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.5.zip)
+  * [0.8.3](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.3.zip)
+  * [0.8.2](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.2.zip)
+  * [0.8.1](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.1.zip)
+  * [0.8.0](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.zip)
+  
+## Android
+
+Currently in internal beta, coming soon!
+
+### Maven
+
+### Manual Download
+
+
