@@ -264,6 +264,74 @@ For example, for an app that tracks runs, start continuous updates when the user
 
 Stopping activity tracking will not stop the SocialRadar SDK -- it only stops the activity type tracking you have chosen. Note, only one activity tracking function will operate at any time.
 
+## Continuous Stream of Compass and Heading Updates
+
+> To **start** streaming compass and heading data, use the following:
+
+```objective_c
+[SocialRadar.sharedInstance startMonitoringHeadingWithCalibration:FALSE updateHandler:^(CLHeading *heading, NSError *error) {
+    if (error == nil) {
+        NSLog(@"heading data %@", heading);
+        NSLog(@"true heading data %f", heading.trueHeading);
+        NSLog(@"x y z component data: %f, %f, %f", heading.x, heading.y, heading.z);
+    } else {
+        NSLog(@"Activity Error %@", error);
+    }
+}];
+```
+
+> To **stop** streaming compass and heading data, use the following:
+
+```objective_c
+[SocialRadar.sharedInstance stopMonitoringHeading];
+```
+
+Streaming compass heading data is available when a continuous real-time feed of compass and heading data is required. This function will not interfere with streaming location activity functions.
+
+The heading object will update as new heading data becomes available.
+
+Setting the Boolean FALSE will prevent Apple’s compass calibration process from appearing over your app. Setting the Boolean to TRUE will force the compass calibration when the heading values are nil, or when heading accuracy value exceeds 10 degrees. This is a conservative value which should minimize the appearance of the calibration display. Refer to Apple’s CLHeading documentation for details.
+
+Stopping compass heading data will not stop the SocialRadar SDK or the streaming location tracking service.
+
+# Data Sharing and Runtime Options
+
+## Pass Email, Gender, and Age
+
+> At any point after SocialRadar Location Manager has launched, you can pass consumer email, gender and/or age data to SocialRadar using the following syntax:
+
+```objective_c
+[SocialRadar sharedInstance].userDataHandler = ^(NSString *key, NSError *error) {
+    if (error == nil) {
+        NSLog(@"PASSED: key=%@", key);
+    } else {
+        NSLog(@"ERROR: key=%@ | error=%@", key, error);
+    }
+};
+
+NSString *firstName = firstNameTextField.text;
+[SocialRadar.sharedInstance sendUserDataValue:firstName forKey:kSRUserKeyFirstName];
+
+```
+> In addition to first name, you can send any of the following keys by repeating the same sendUserDataValue operation outlined above:
+
+```objective_c
+NSString *const kSRUserKeyAge;
+NSString *const kSRUserKeyGender;
+NSString *const kSRUserKeyFirstName;
+NSString *const kSRUserKeyLastName;
+NSString *const kSRUserKeyFullName;
+NSString *const kSRUserKeyEmailAddress;
+NSString *const kSRUserKeyPhoneNumber;
+NSString *const kSRUserKeyCustomID;
+```
+
+A user’s email address, gender and age assist in building user interest profiles and in connecting user profiles to third party data sources, resulting in more useful user insights.
+
+E-mail is never used to contact consumers, and e-mail addresses hashed using SHA-1 prior to performing matching functions with third parties.
+
+
+
 # Downloads
 
 ## iOS
