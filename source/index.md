@@ -18,7 +18,7 @@ search: true
 
 ## SocialRadar Location Manager
 
-The SocialRadar Location Manager is designed to provide accurate location data to apps which require precise or continuous location services, passive venue check-in and detailed user insights based on the places your users go every day. 
+The SocialRadar Location Manager is designed to provide accurate location data to apps which require precise or continuous location services, passive venue check-in and detailed user insights based on the places your users go every day.
 
 ### How it works
 
@@ -37,7 +37,7 @@ Battery consumption is extremely efficient – the SocialRadar SDK averages 1.7%
 
 ### Transparent operation
 
-The SocialRadar Location Manager never surfaces dialog boxes, errors or notifications directly to a consumer. 
+The SocialRadar Location Manager never surfaces dialog boxes, errors or notifications directly to a consumer.
 
 ### User Insights
 
@@ -97,7 +97,7 @@ In the project target's **Capabilities** section, enable **Background Modes** an
 [SocialRadar initializeWithApiToken:@"<yourApiTokenHere>"];
 
 // Start it
-[[SocialRadar sharedInstance] startSocialRadarWithPersistenceEnabled: YES];
+[[SocialRadar sharedInstance] startServices];
 ```
 
 The SocialRadar Location Manager SDK requires the use of the Apple location manager.
@@ -148,7 +148,7 @@ If the consumer chooses not to authorize location services, SocialRadar Location
 #endif
 ```
 
-SocialRadar Location Manager operates in the background, and will not perform heavy operations, nor produce NSNotifications nor NSLogs which may interfere with the performance of your app. 
+SocialRadar Location Manager operates in the background, and will not perform heavy operations, nor produce NSNotifications nor NSLogs which may interfere with the performance of your app.
 
 The best way to determine a successful SocialRadar Location Manager implementation is to enable **Developer Diagnostics** when running the app in developement.
 
@@ -175,7 +175,7 @@ If you are interested in receiving early access, send an email to [sdk@socialrad
 // The following should go in your AppDelegate.m file in application:didFinishLaunchingWithOptions: method
 [SocialRadar initializeWithApiToken:@"<yourApiTokenHere>"];
 
-[[SocialRadar sharedInstance] startSocialRadarWithPersistenceEnabled: YES];
+[[SocialRadar sharedInstance] startServices];
 ```
 
 ```java
@@ -200,7 +200,7 @@ Now that you've implemented the SocialRadar Location Manager, you’re able to o
 
 The location data you will receive is a CLLocation object returning a refined coordinate for the user’s current position.
 
-There are two methods of returning data: single point request and continuous streaming. 
+There are two methods of returning data: single point request and continuous streaming.
 
 ## Single Location Point Request
 
@@ -240,7 +240,7 @@ You will quickly receive the user's most recent location point to the provided h
 [SocialRadar.sharedInstance stopMonitoringActivityType];
 ```
 
-Streaming location Streaming location data Streaming location data is available when a continuous real-time feed of location data is required. 
+Streaming location Streaming location data Streaming location data is available when a continuous real-time feed of location data is required.
 
 The SocialRadar SDK offers location data streams optimized by user.
 
@@ -263,36 +263,6 @@ In order to minimize battery usage, it is recommended that you enable the contin
 For example, for an app that tracks runs, start continuous updates when the user starts their run and stop when the user indicates their run is finished.
 
 Stopping activity tracking will not stop the SocialRadar SDK -- it only stops the activity type tracking you have chosen. Note, only one activity tracking function will operate at any time.
-
-## Continuous Stream of Compass and Heading Updates
-
-> To **start** streaming compass and heading data, use the following:
-
-```objective_c
-[SocialRadar.sharedInstance startMonitoringHeadingWithCalibration:FALSE updateHandler:^(CLHeading *heading, NSError *error) {
-    if (error == nil) {
-        NSLog(@"heading data %@", heading);
-        NSLog(@"true heading data %f", heading.trueHeading);
-        NSLog(@"x y z component data: %f, %f, %f", heading.x, heading.y, heading.z);
-    } else {
-        NSLog(@"Activity Error %@", error);
-    }
-}];
-```
-
-> To **stop** streaming compass and heading data, use the following:
-
-```objective_c
-[SocialRadar.sharedInstance stopMonitoringHeading];
-```
-
-Streaming compass heading data is available when a continuous real-time feed of compass and heading data is required. This function will not interfere with streaming location activity functions.
-
-The heading object will update as new heading data becomes available.
-
-Setting the Boolean FALSE will prevent Apple’s compass calibration process from appearing over your app. Setting the Boolean to TRUE will force the compass calibration when the heading values are nil, or when heading accuracy value exceeds 10 degrees. This is a conservative value which should minimize the appearance of the calibration display. Refer to Apple’s CLHeading documentation for details.
-
-Stopping compass heading data will not stop the SocialRadar SDK or the streaming location tracking service.
 
 # Data Sharing and Runtime Options
 
@@ -347,6 +317,7 @@ The SocialRadar SDK (iOS) can be easily installed from CocoaPods.
 ### Manual Download
 
 * SocialRadar SDK
+  * [1.3.6](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.6.zip)
   * [1.3.5](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.5.zip)
   * [1.3.2](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.2.zip)
   * [1.3.0](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.0.zip)
@@ -358,7 +329,7 @@ The SocialRadar SDK (iOS) can be easily installed from CocoaPods.
   * [0.8.2](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.2.zip)
   * [0.8.1](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.1.zip)
   * [0.8.0](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.zip)
-  
+
 ## Android
 
 Currently in internal beta, coming soon!
@@ -366,5 +337,3 @@ Currently in internal beta, coming soon!
 ### Maven
 
 ### Manual Download
-
-
