@@ -292,11 +292,7 @@ Coming soon!
 
 ### Manual Download
 
-<<<<<<< HEAD
 Please contact the SocialRadar SDK team on [sdk@socialradar.com](mailto:sdk@socialradar.com) to obtain an API key and a copy of LocationKit.
-=======
-Send an email to [sdk@socialradar.com](mailto:sdk@socialradar.com) to obtain an API key and a copy of LocationKit.
->>>>>>> Update documentation
 
 ## Android
 
