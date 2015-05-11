@@ -14,6 +14,8 @@ License for the specific language governing permissions and limitations
 under the License.
 */
 (function (global) {
+  'use strict';
+
   var languages = [];
 
   global.setupLanguages = setupLanguages;
@@ -26,14 +28,16 @@ under the License.
     $(".lang-selector a").removeClass('active');
     $(".lang-selector a[data-language-name='" + language + "']").addClass('active');
     for (var i=0; i < languages.length; i++) {
-      $(".highlight." + languages[i]).parent().hide();
+      $(".highlight." + languages[i]).hide();
     }
-    $(".highlight." + language).parent().show();
+    $(".highlight." + language).show();
 
     global.toc.calculateHeights();
 
     // scroll to the new location of the position
-    $(window.location.hash).get(0).scrollIntoView(true);
+    if ($(window.location.hash).get(0)) {
+      $(window.location.hash).get(0).scrollIntoView(true);
+    }
   }
 
   // if a button is clicked, add the state to the history
