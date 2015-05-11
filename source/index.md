@@ -122,7 +122,7 @@ If the consumer chooses not to authorize location services, LocationKit will sus
 
 ## 6. Ensuring it works
 
-> Place the following code immediately following the Locationkit initialization code to obtain some diagnostic information:
+> Place the following code immediately following the LocationKit initialization code to obtain some diagnostic information:
 
 ```objective_c
 [SocialRadar showConfigurationStatus];
