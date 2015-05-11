@@ -1,11 +1,12 @@
 ---
-title: API Reference
+title: SocialRadar SDK - API Reference
 
 language_tabs:
   - objective_c: iOS
   - java: Android
 
 toc_footers:
+  - <a href='http://www.socialradar.com'>SocialRadar Website</a>
   - <a href='mailto:sdk@socialradar.com'>Email us for an API Token</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
@@ -16,15 +17,15 @@ search: true
 
 # Overview
 
-## SocialRadar Location Manager
+## SocialRadar LocationKit
 
-The SocialRadar Location Manager is designed to provide accurate location data to apps which require precise or continuous location services, passive venue check-in and detailed user insights based on the places your users go every day.
+LocationKit is designed to provide accurate location data to apps which require precise or continuous location services, passive venue check-in and detailed user insights based on the places your users go every day.
 
 ### How it works
 
-SocialRadar SDK processes location signals through a private location manager instance, analyzing activity and validating data within the private SocialRadar cloud. Anonymized consumer insights may be shared with app publishers and marketing firms.
+LocationKit processes location signals through a private location manager instance, analyzing activity and validating data within the private SocialRadar cloud. Anonymized consumer insights may be shared with app publishers and marketing firms.
 
-The SocialRadar Location Manager framework works independently of the host app, and other than the app providing match key data to the SDK framework, no interaction between the app and framework is required to enable SocialRadar Location Manager to work properly.
+The SocialRadar LocationKit framework works independently of the host app, and other than the app providing match key data to the framework, no interaction between the app and framework is required to enable LocationKit to work properly.
 
 ### Operating Requirements
 
@@ -33,18 +34,18 @@ The SocialRadar Location Manager framework works independently of the host app, 
 
 ### Battery Consumption Safeguards
 
-Battery consumption is extremely efficient – the SocialRadar SDK averages 1.7% battery consumption per hour, depending on the type of device used. If remaining battery power dips below 21%, the SDK pauses until the battery has been charged.
+Battery consumption is extremely efficient – LocationKit averages 1.7% battery consumption per hour, depending on the type of device used. If remaining battery power dips below 21%, LocationKit pauses until the battery has been charged.
 
 ### Transparent operation
 
-The SocialRadar Location Manager never surfaces dialog boxes, errors or notifications directly to a consumer.
+SocialRadar LocationKit never surfaces dialog boxes, errors or notifications directly to a consumer.
 
 ### User Insights
 
 Consumer interest profiles are indexed with match keys, allowing data to be properly analyzed and cross-referenced by app-created user data. Match keys include:
 
- * Device ID (IDFA) – automatically obtained by SocialRadar SDK
- * Home IP address – automatically obtained by SocialRadar SDK
+ * Device ID (IDFA) – automatically obtained by LocationKit
+ * Home IP address – automatically obtained by LocationKit
  * E-mail address – provided by you through an API interface
  * Proprietary user IDs – provided by you through an API Interface
 
@@ -52,7 +53,7 @@ Match key data is handled in compliance with advertising industry privacy and da
 
 # Getting Started (iOS)
 
-Adding the SocialRadar SDK to an app is easy:
+Adding LocationKit to an app is easy:
 
 ## 1. Obtain an API Key
 
@@ -60,21 +61,22 @@ For now, email [sdk@socialradar.com](mailto:sdk@socialradar.com) to request a ke
 
 ## 2. Retrieve and integrate the SDK
 
-You can either:
+<!-- You can either: -->
 
-### Download Manually
+<!-- ### Download Manually -->
 
-1. Download the latest version [here](#downloads)
+<!-- 1. Download the latest version [here](#downloads) -->
+1. Our team will send you a file named **SocialRadar.framework** when you request a key
 1. Add the **SocialRadar.framework** file to your project
 1. Using Xcode, navigate to your project target's "General" settings; in the "*Linked Frameworks and Libraries*" section, add **SocialRadar.framework**
 
-### Add SocialRadar as a CocoaPod
+<!-- ### Add SocialRadar as a CocoaPod
 
 The SocialRadar SDK is available as a [CocoaPod](http://cocoadocs.org/docsets/SocialRadarSDK) for ease of integration.
 
 1. Add the following to your Podfile: `pod 'SocialRadarSDK'`
 1. Close your project in Xcode and update it by running `pod install` from **Terminal** in your project directory
-1. Open your project in Xcode and perform a Clean build
+1. Open your project in Xcode and perform a Clean build -->
 
 ## 3. Configure your Project
 
@@ -93,20 +95,17 @@ In the project target's **Capabilities** section, enable **Background Modes** an
 > From within appdelegate.m’s application:didFinishLaunchingWithOptions: method, add the following lines to initialize and launch SocialRadar Location Manager:
 
 ```objective_c
-// Initialize
-[SocialRadar initializeWithApiToken:@"<yourApiTokenHere>"];
-
-// Start it
-[[SocialRadar sharedInstance] startServices];
+// Initialize and start LocationKit
+[SocialRadar startWithToken:@"<yourApiTokenHere>"];
 ```
 
-The SocialRadar Location Manager SDK requires the use of the Apple location manager.
+SocialRadar LocationKit requires the use of the Apple location manager.
 
-Start the SocialRadar Location Manager at the point after your app normally begins collecting location data – ideally, it should be run immediately after requesting your user’s permission to access location data and while the app is still in the foreground.
+Start LocationKit at the point after your app normally begins collecting location data – ideally, it should be run immediately after requesting your user’s permission to access location data and while the app is still in the foreground.
 
 Remember to replace `<yourAPITokenHere>` with the API token supplied to you by SocialRadar.
 
-The return result of `[SocialRadar sharedInstance]` will be nil if called before the `[SocialRadar initializeWithApiToken:@"<yourApiTokenHere>"]` method is invoked.
+<!-- The return result of `[SocialRadar sharedInstance]` will be nil if called before the `[SocialRadar initializeWithApiToken:@"<yourApiTokenHere>"]` method is invoked. -->
 
 
 ## 5. Configuring permissions
@@ -125,7 +124,7 @@ The return result of `[SocialRadar sharedInstance]` will be nil if called before
 ```
 
 
-Using SocialRadar Location Manager requires the consumer to receive an informational message explaining how location services will be used within the app.
+Using SocialRadar LocationKit requires the consumer to receive an informational message explaining how location services will be used within the app.
 
 That informational message is contained in the Info.plist or the InfoPlist.strings file.
 
@@ -135,7 +134,7 @@ If your app will run on iOS 7.x, you must add a `NSLocationUsageDescription` ent
 
 If successfully implemented, the consumer will receive a standard location services notification request dialog box presenting them with a request for location services and why the location services are being requested.
 
-If the consumer chooses not to authorize location services, SocialRadar Location Manager will suspend activity until the consumer authorizes location services.
+If the consumer chooses not to authorize location services, SocialRadar LocationKit will suspend activity until the consumer authorizes location services.
 
 
 ## 6. Ensuring it works
@@ -148,9 +147,9 @@ If the consumer chooses not to authorize location services, SocialRadar Location
 #endif
 ```
 
-SocialRadar Location Manager operates in the background, and will not perform heavy operations, nor produce NSNotifications nor NSLogs which may interfere with the performance of your app.
+LocationKit operates in the background, and will not perform heavy operations, nor produce NSNotifications nor NSLogs which may interfere with the performance of your app.
 
-The best way to determine a successful SocialRadar Location Manager implementation is to enable **Developer Diagnostics** when running the app in developement.
+The best way to determine a successful LocationKit implementation is to enable **Developer Diagnostics** when running the app in development.
 
 If successful, you will see the following in your console:
 
@@ -160,13 +159,13 @@ Remember to remove these debug lines prior to releasing your app to the App Stor
 
 # Getting Started (Android)
 
-Unfortunately, at this time the SocialRadar SDK for Android is currently in internal beta only.
+Unfortunately, at this time SocialRadar LocationKit for Android is currently in internal beta only.
 
 If you are interested in receiving early access, send an email to [sdk@socialradar.com](mailto:sdk@socialradar.com).
 
 # Initialization
 
-> To initialize the SocialRadar SDK, use the following code:
+> To initialize SocialRadar LocationKit, use the following code:
 
 ```objective_c
 // The following should go in your AppDelegate.m above the @implementation section
@@ -178,25 +177,25 @@ If you are interested in receiving early access, send an email to [sdk@socialrad
 [[SocialRadar sharedInstance] startServices];
 ```
 
-```java
+<!-- ```java
 import SocialRadar
 
 // This is not real since the Android library has not yet been launched...
-```
+``` -->
 
-The SocialRadar SDK uses API tokens to allow access to the API.
+LocationKit uses API tokens to allow access to the API.
 
 Until our developer portal is finished (coming soon!), you can get an API token by emailing [sdk@socialradar.com](mailto:sdk@socialradar.com)
 
-The SocialRadar SDK expects the API token to be included in all API requests to the server and without one, the server will reject requests.
+LocationKit expects the API token to be included in all API requests to the server and without one, the server will reject requests.
 
 <aside class="notice">
 You must replace `<yourApiTokenHere>` with your app's API key.
 </aside>
 
-# SocialRadar Location Manager
+# SocialRadar LocationKit
 
-Now that you've implemented the SocialRadar Location Manager, you’re able to obtain location data on demand.
+Now that you've implemented LocationKit, you’re able to obtain location data on demand.
 
 The location data you will receive is a CLLocation object returning a refined coordinate for the user’s current position.
 
@@ -268,7 +267,7 @@ Stopping activity tracking will not stop the SocialRadar SDK -- it only stops th
 
 ## Pass Email, Gender, and Age
 
-> At any point after SocialRadar Location Manager has launched, you can pass consumer email, gender and/or age data to SocialRadar using the following syntax:
+> At any point after SocialRadar LocationKit has launched, you can pass consumer email, gender and/or age data to SocialRadar using the following syntax:
 
 ```objective_c
 [SocialRadar sharedInstance].userDataHandler = ^(NSString *key, NSError *error) {
@@ -310,20 +309,10 @@ E-mail is never used to contact consumers, and e-mail addresses hashed using SHA
 
 Coming soon!
 
-<!-- The SocialRadar SDK (iOS) can be easily installed from CocoaPods.
-
-1. Add the following to your Podfile: `pod 'SocialRadarSDK'`
-1. Close your project in Xcode and update it by running `pod install` from **Terminal** in your project directory
-1. Open your project in Xcode and perform a Clean build -->
-
 ### Manual Download
 
 Please contact the SocialRadar SDK team on [sdk@socialradar.com](mailto:sdk@socialradar.com) to obtain an API key and a copy of LocationKit.
 
 ## Android
 
-Currently in internal beta, coming soon!
-
-### Maven
-
-### Manual Download
+Coming soon!
