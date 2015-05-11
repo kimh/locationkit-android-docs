@@ -306,29 +306,19 @@ E-mail is never used to contact consumers, and e-mail addresses hashed using SHA
 
 ## iOS
 
-### CocoaPod
+### CocoaPods
 
-The SocialRadar SDK (iOS) can be easily installed from CocoaPods.
+Coming soon!
+
+<!-- The SocialRadar SDK (iOS) can be easily installed from CocoaPods.
 
 1. Add the following to your Podfile: `pod 'SocialRadarSDK'`
 1. Close your project in Xcode and update it by running `pod install` from **Terminal** in your project directory
-1. Open your project in Xcode and perform a Clean build
+1. Open your project in Xcode and perform a Clean build -->
 
 ### Manual Download
 
-* SocialRadar SDK
-  * [1.3.6](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.6.zip)
-  * [1.3.5](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.5.zip)
-  * [1.3.2](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.2.zip)
-  * [1.3.0](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.3.0.zip)
-  * [1.2.8](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.8.zip)
-  * [1.2.7](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.7.zip)
-  * [1.2.6](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.6.zip)
-  * [1.2.5](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-1.2.5.zip)
-  * [0.8.3](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.3.zip)
-  * [0.8.2](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.2.zip)
-  * [0.8.1](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.1.zip)
-  * [0.8.0](http://cdn.socialradar.com/sdk/SocialRadarSDK-ios-0.8.zip)
+Please contact the SocialRadar SDK team on [sdk@socialradar.com](mailto:sdk@socialradar.com) to obtain an API key and a copy of LocationKit.
 
 ## Android
 
