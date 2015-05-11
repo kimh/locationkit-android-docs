@@ -41,25 +41,23 @@ LocationKit never surfaces dialog boxes, errors or notifications directly to a c
 
 # Getting Started
 
-Adding LocationKit to an app is easy:
-
-## 1. Obtain an API Key
+## Obtain an API Key
 
 For now, email [sdk@socialradar.com](mailto:sdk@socialradar.com) to request a key until our full developer site is ready.
 
-## 2. Retrieve and integrate the SDK
+## Retrieve and integrate the SDK
 
 1. Our team will send you a file named **SocialRadar.framework.zip** when you request a key
 1. Unzip the file and add the **SocialRadar.framework** file to your project
 1. Using Xcode, navigate to your project target's *General* settings; in the *Linked Frameworks and Libraries* section, add **SocialRadar.framework**
 
-## 3. Configure your Project
+## Configure your Project
 
 In the project target's **Capabilities** section, enable **Background Modes** and enable **Location Updates** as shown in the following screenshot:
 
 ![Enable Location Updates](images/background_modes.png)
 
-## 4. Starting and Stopping LocationKit
+## Starting and Stopping LocationKit
 
 ### Initializing and Starting LocationKit
 
@@ -93,7 +91,7 @@ Remember to replace `<yourAPITokenHere>` with the API token supplied to you by S
 
 If you would like to stop LocationKit, you can do so using the class method `stop`.
 
-## 5. Configuring permissions
+## Configuring permissions
 
 > We recommend the following InfoPlist.strings file configuration (adjust the language as required by your app):
 
@@ -120,7 +118,7 @@ If successfully implemented, the consumer will receive a standard location servi
 
 If the consumer chooses not to authorize location services, LocationKit will suspend activity until the consumer authorizes location services.
 
-## 6. Ensuring it works
+## Ensuring it works
 
 > Place the following code immediately following the LocationKit initialization code to obtain some diagnostic information:
 
@@ -162,25 +160,7 @@ Single point requests do not increase battery consumption rates.
 
 You will quickly receive the user's most recent location point to the provided handler.
 
-## Streaming Location Data
-
-### Start Streaming
-
-> To start streaming location data, use the following (substitute the *SRFrequencyLevelMedium* with the activity tracking option you require):
-
-```objective_c
-[SocialRadar startLocationUpdatesWithFrequencyLevel:SRFrequencyLevelMedium updateHandler:^(CLLocation *location, NSError *error) {
-    if (error == nil) {
-        NSLog(@"Activity location %@", location);
-    } else {
-        NSLog(@"Activity error %@", error);
-    }
-}];
-```
-
-Streaming location data is available when a continuous real-time feed of location data is required.
-
-### Streaming Update Frequency
+## Streaming Update Frequency
 
 Selecting the right update frequency when initiating streaming location tracking ensures the right algorithm is used to refine the GPS data.
 
@@ -200,7 +180,23 @@ In order to minimize battery usage, it is recommended that you enable the contin
 
 For example, for an app that tracks runs, start continuous updates when the user starts their run and stop when the user indicates their run is finished.
 
-### Stop Streaming
+## Start Streaming Location Data
+
+> To start streaming location data, use the following (substitute the *SRFrequencyLevelMedium* with the activity tracking option you require):
+
+```objective_c
+[SocialRadar startLocationUpdatesWithFrequencyLevel:SRFrequencyLevelMedium updateHandler:^(CLLocation *location, NSError *error) {
+    if (error == nil) {
+        NSLog(@"Activity location %@", location);
+    } else {
+        NSLog(@"Activity error %@", error);
+    }
+}];
+```
+
+Streaming location data is available when a continuous real-time feed of location data is required.
+
+## Stop Streaming Location Data
 
 > To stop streaming location data, use the following:
 
