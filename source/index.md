@@ -6,7 +6,7 @@ language_tabs:
 
 toc_footers:
   - <a href='http://www.socialradar.com'>SocialRadar Website</a>
-  - <a href='mailto:sdk@socialradar.com'>Email us for an API Token</a>
+  - <a href='mailto:locationkit@socialradar.com'>Email us for an API Token</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -43,7 +43,7 @@ LocationKit never surfaces dialog boxes, errors or notifications directly to a c
 
 ## Obtain an API Key
 
-For now, email [sdk@socialradar.com](mailto:sdk@socialradar.com) to request a key until our full developer site is ready.
+For now, email [locationkit@socialradar.com](mailto:locationkit@socialradar.com) to request a key until our full developer site is ready.
 
 ## Retrieve and integrate the SDK
 
@@ -292,7 +292,7 @@ Coming soon!
 
 ### Manual Download
 
-Please contact the LocationKit team on [sdk@socialradar.com](mailto:sdk@socialradar.com) to obtain an API key and a copy of LocationKit.
+Please contact the LocationKit team on [locationkit@socialradar.com](mailto:locationkit@socialradar.com) to obtain an API key and a copy of LocationKit.
 
 ## Android
 
