@@ -123,7 +123,7 @@ If the consumer chooses not to authorize location services, LocationKit will sus
 > Place the following code immediately following the LocationKit initialization code to obtain some diagnostic information:
 
 ```objective_c
-[LocatinKit showConfigurationStatus];
+[LocationKit showConfigurationStatus];
 ```
 
 LocationKit operates in the background, and will not perform heavy operations, nor produce NSNotifications nor NSLogs which may interfere with the performance of your app.
