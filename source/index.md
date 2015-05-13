@@ -6,7 +6,7 @@ language_tabs:
 
 toc_footers:
   - <a href='http://www.socialradar.com'>SocialRadar Website</a>
-  - <a href='mailto:sdk@socialradar.com'>Email us for an API Token</a>
+  - <a href='mailto:locationkit@socialradar.com'>Email us for an API Token</a>
   - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
@@ -43,13 +43,13 @@ LocationKit never surfaces dialog boxes, errors or notifications directly to a c
 
 ## Obtain an API Key
 
-For now, email [sdk@socialradar.com](mailto:sdk@socialradar.com) to request a key until our full developer site is ready.
+For now, email [locationkit@socialradar.com](mailto:locationkit@socialradar.com) to request a key until our full developer site is ready.
 
 ## Retrieve and integrate the SDK
 
-1. Our team will send you a file named **SocialRadar.framework.zip** when you request a key
-1. Unzip the file and add the **SocialRadar.framework** file to your project
-1. Using Xcode, navigate to your project target's *General* settings; in the *Linked Frameworks and Libraries* section, add **SocialRadar.framework**
+1. Our team will send you a file named **LocationKit.zip** when you request a key
+1. Unzip the file and add the **LocationKit.framework** artifact to your project
+1. Using Xcode, navigate to your project target's *General* settings; in the *Linked Frameworks and Libraries* section, add **LocationKit.framework**, as well as **AdSupport.framework**, **CoreLocation.framework** and **MapKit.framework**
 
 ## Configure your Project
 
@@ -64,14 +64,14 @@ In the project target's **Capabilities** section, enable **Background Modes** an
 > For example, if you launch your Apple location manager services from within **AppDelegate.m**, add the following line above the **@implementation** section:
 
 ```objective_c
-#import <SocialRadar/SocialRadar.h>
+#import <LocationKit/LocationKit.h>
 ```
 
-> From within appdelegate.m’s application:didFinishLaunchingWithOptions: method, add the following lines to initialize and launch SocialRadar Location Manager:
+> From within appdelegate.m’s application:didFinishLaunchingWithOptions: method, add the following lines to initialize and launch LocationKit:
 
 ```objective_c
 // Initialize and start LocationKit
-[SocialRadar startWithToken:@"<yourApiTokenHere>"];
+[LocationKit startWithToken:@"<yourApiTokenHere>"];
 ```
 
 SocialRadar LocationKit requires the use of the Apple location manager.
@@ -86,7 +86,7 @@ Remember to replace `<yourAPITokenHere>` with the API token supplied to you by S
 
 ```objective_c
 // Stop LocationKit
-[SocialRadar stop];
+[LocationKit stop];
 ```
 
 If you would like to stop LocationKit, you can do so using the class method `stop`.
@@ -123,7 +123,7 @@ If the consumer chooses not to authorize location services, LocationKit will sus
 > Place the following code immediately following the LocationKit initialization code to obtain some diagnostic information:
 
 ```objective_c
-[SocialRadar showConfigurationStatus];
+[LocationKit showConfigurationStatus];
 ```
 
 LocationKit operates in the background, and will not perform heavy operations, nor produce NSNotifications nor NSLogs which may interfere with the performance of your app.
@@ -147,7 +147,7 @@ There are two methods of returning data: single point request and continuous str
 > To quickly obtain the user’s most recent location point, execute the following:
 
 ```objective_c
-[SocialRadar getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
+[LocationKit getCurrentLocationWithHandler:^(CLLocation *location, NSError *error) {
     if (error == nil) {
         NSLog(@"%.6f, %.6f, %@", location.coordinate.latitude, location.coordinate.longitude, location.timestamp);
     } else {
@@ -185,7 +185,7 @@ For example, for an app that tracks runs, start continuous updates when the user
 > To start streaming location data, use the following (substitute the *SRFrequencyLevelMedium* with the activity tracking option you require):
 
 ```objective_c
-[SocialRadar startLocationUpdatesWithFrequencyLevel:SRFrequencyLevelMedium updateHandler:^(CLLocation *location, NSError *error) {
+[LocationKit startLocationUpdatesWithFrequencyLevel:SRFrequencyLevelMedium updateHandler:^(CLLocation *location, NSError *error) {
     if (error == nil) {
         NSLog(@"Activity location %@", location);
     } else {
@@ -201,7 +201,7 @@ Streaming location data is available when a continuous real-time feed of locatio
 > To stop streaming location data, use the following:
 
 ```objective_c
-[SocialRadar stopLocationUpdates];
+[LocationKit stopLocationUpdates];
 ```
 
 Stopping activity tracking will not stop LocationKit -- it only stops the location tracking function that you have chosen. Note, only one location tracking function will operate at any time.
@@ -211,7 +211,7 @@ Stopping activity tracking will not stop LocationKit -- it only stops the locati
 > To retrieve a list of venues at the current location, use the following:
 
 ```objective_c
-[SocialRadar getCurrentVenuesWithHandler:^(NSArray *venues, NSError *error) {
+[LocationKit getCurrentVenuesWithHandler:^(NSArray *venues, NSError *error) {
   if (error == nil) {
       if(venues.count > 0) {
           SRVenue *venue = venue[0];
@@ -234,7 +234,7 @@ An SRVenue object contains the name, category and subcategory for a venue, in ad
 > To start receiving venue updates, use the following:
 
 ```objective_c
-[SocialRadar startVenueUpdatesWithHandler:^(NSArray *venues, NSError *error) {
+[LocationKit startVenueUpdatesWithHandler:^(NSArray *venues, NSError *error) {
   if (error == nil) {
       if(venues.count > 0) {
           SRVenue *venue = venue[0];
@@ -255,7 +255,7 @@ Venue updates will be sent when LocationKit detects that a user has entered a ne
 > To stop receiving venue updates, use the following:
 
 ```objective_c
-[SocialRadar stopVenueUpdates];
+[LocationKit stopVenueUpdates];
 ```
 
 Stopping venue updates will not stop LocationKit -- it only stops receiving venue updates.
@@ -292,7 +292,7 @@ Coming soon!
 
 ### Manual Download
 
-Please contact the SocialRadar SDK team on [sdk@socialradar.com](mailto:sdk@socialradar.com) to obtain an API key and a copy of LocationKit.
+Please contact the LocationKit team on [locationkit@socialradar.com](mailto:locationkit@socialradar.com) to obtain an API key and a copy of LocationKit.
 
 ## Android
 
