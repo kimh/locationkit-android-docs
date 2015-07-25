@@ -294,6 +294,7 @@ Coming soon!
 
 Please contact the LocationKit team on [locationkit@socialradar.com](mailto:locationkit@socialradar.com) to obtain an API key and a copy of LocationKit.
 
+<<<<<<< HEAD
 ## Android
 
 Coming soon!
