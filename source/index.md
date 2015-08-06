@@ -368,10 +368,10 @@ delegate will receive the background updates and they will be ignored.
 LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
 ```
 
-Use: Kick off LocationKit using the API token you received from the [Developer
+*Use:* Kick off LocationKit using the API token you received from the [Developer
 Dashboard](https://dashboard.locationkit.io)
 
-Optional: Provide an object implementing our `LocationKitDelegate` protocol
+*Optional:* Provide an object implementing our `LocationKitDelegate` protocol
 to receive background updates when events occur such as getting a new location
 or arriving/leaving a place.
 
@@ -385,7 +385,7 @@ or arriving/leaving a place.
 LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:myDelegate)
 ```
 
-Notes:
+*Notes:*
 
 * Due to the use of [ARC](https://en.wikipedia.org/wiki/Automatic_Reference_Counting)
 in iOS, you must make sure to keep this delegate around. So don't make it a
@@ -394,6 +394,44 @@ instance variable owned by your ViewController or AppDelegate or wherever it
 makes sense.
 * This will require permission from your users to run in the background, which
 you will have if you configured things following the instructions above.
+
+## Pause
+
+> To pause LocationKit
+
+```objective_c
+[[LocationKit sharedInstance] pause];
+```
+
+```swift
+LocationKit.sharedInstance().pause()
+```
+
+*Use:* Pause LocationKit and stop receiving locations and visits
+
+*Note:* Pausing LocationKit will prevent you from receiving any further updates
+to locations, places, visits, and so on so do so sparingly. It will prevent
+LocationKit from continuing to run in the background and significantly diminish
+the usefulness of our location-based developer insights. We strongly recommend
+not pausing LocationKit.
+
+## Resume
+
+*Use:* In order to once again receive updates and get locations or places after you
+have paused it, you must resume LocationKit.
+
+> To resume LocationKit after it has been paused
+
+```objective_c
+NSError *error = [[LocationKit sharedInstance] resume];
+```
+
+```swift
+let error = LocationKit.sharedInstance().resume()
+```
+
+If there was some issue resuming LocationKit, the error returned from this
+method will be non-`nil`
 
 # High Accuracy Location
 
@@ -436,11 +474,6 @@ accuracy location.
 By using LocationKit in your app, you put all the expertise of our location
 experts without having to think about it. Your location data will be more
 accurate resulting in a better experience for your users.
->>>>>>> New docs update
-
-By using LocationKit in your app, you put all the expertise of our location
-experts without having to think about it. Your location data will be more
-accurate resulting in a better experience for your users.
 
 ## Single Location Request
 
@@ -462,7 +495,6 @@ accurate resulting in a better experience for your users.
 ```swift
 LocationKit.sharedInstance().getCurrentLocationWithHandler { (location:CLLocation!, error:NSError!) -> Void in
     if let loc = location {
-<<<<<<< HEAD
         println("got location (\(loc.coordinate.latitude), \(loc.coordinate.longitude))")
     } else {
         println("got a nil location")
@@ -509,6 +541,125 @@ whenever it detects the device has moved to a new location.
 *Use:* Receive a stream of background location updates to your
 LocationKitDelegate, even while your app is in the background, whenever the
 device moves and an accurate location point is determined.
+
+*Returns:* A new CLLocation object, each time the device is moved to a new
+location.
+
+## Optional Timed Background Location Updates
+
+> Start LocationKit with an NSTimeInterval to get timed background updates
+
+```objective_c
+
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate withTimeInterval:myTimeInterval];
+```
+
+```swift
+var locationKit = LocationKit.sharedInstance()
+locationKit.startWithApiToken("your_api_token", andDelegate:myDelegate, andTimeInterval:myTimeInterval)
+```
+*Use:* Start LocationKit in a mode where it provides regularly timed updates,
+regardless of user behavior or other environmental considerations. Calls the
+same `didUpdateLocation` delegate method described above, but now with a set
+time interval between points returned.
+
+**Note, we urge against using this method in favor of the standard, event-driven
+model**
+
+We included this method as some partners requested it and to provide parity with
+[Android's timed location request interval](https://developers.google.com/android/reference/com/google/android/gms/location/LocationRequest#setInterval\(long\)).
+
+However, this method generally results in greater battery drain (particularly if
+the specified interval is rather low) and does not guarantee better results.
+
+The GPS chip on an iPhone only provides us with locations every so often and in
+the standard usage of LocationKit, we automatically optimize that and provide
+updates to your delegate whenever the location of the device changes (and hence
+is most relevant for your app).
+
+Requesting to receive such updates on a set time interval rather than relying on
+our optimization means:
+
+* Your code will run more often than it probably needs to resulting in more
+  complexity and higher battery drain
+* Depending on the time interval you specify, you may receive stale updates or
+  the some location multiple times (if the GPS chip provides a location every 10
+  seconds but you request to have an update every 1 second, 9 out of every 10
+  updates will be the same and you're just wasting computing and therefore the
+  user's battery)
+* You will not get the benefit of other battery optimizations we do such as:
+  * Lowering the GPS battery drain intelligently when we notice user pattern
+    from the accelerometer and GPS which likely indicate that the user is not
+    moving
+  * Reducing the frequency of updates when the user is performing activity that
+    is not relevant to determining user location. For instance, when the user
+    is underground and there is a poor GPS signal we turn down the frequency
+    as it needlessly wastes their battery. Requesting a timed interval kills
+    this
+* In a situation where the GPS chip is providing frequent updates (such as when
+  another app is using the GPS for navigation), your app will miss out on
+  updates it could be getting at no additional battery drain (as the other app
+  is requesting the frequent GPS updates).
+
+[Contact us](locationkit@socialradar.com) for more details, explanation, or to
+talk to one of our location experts about your use case.
+
+# Contextual Location Data
+
+While it's great for LocationKit to provide higher accuracy location, that is
+only the tip of the iceberg in terms of functionality that LocationKit provides
+to help you build awesome apps.
+
+One of the things we discovered while building the SocialRadar consumer app was
+that, while a latitude/longitude can be useful, more often what we really cared
+about was contextual information about that location.
+
+It's nice to know that a user is currently at (38.904338837, -77.043243408), but
+unless you're a computer (or a location geek like myself) you're unlikely to
+recognize that as the coordinates of Washington, DC, which is where our offices
+are located.
+
+So what we've done here at SocialRadar is put together an extensive backend
+database of venues, buildings, addresses, and events which we use to provide
+your app with more comprehensive contextual location information via
+LocationKit.
+
+LocationKit is not only monitoring the device for visits, but when it detects a
+visit it will automatically call out to our backend servers, fetch all of the
+contextual information we have on the place where the visit occurred, and
+provide it to your app via a very simple API.
+
+As a developer, you don't have to mess around with getting a latitude/longitude,
+reverse geocoding it to figure out the address, then calling multiple other web
+APIs to figure out contextual information on that place. LocationKit will handle
+all of that complexity for you so your app gets useful location information you
+can utilize to build a kick ass experience for your users.
+
+In summary this means that, rather than just getting a latitude/longitude like
+you would with CoreLocation, LocationKit will provide your app with context such
+as what venue your user is in, the address of that place, any events going on at
+that place, and other users of your app that are also at that place. This is
+*incredibly* useful to building an awesome app experience and as a developer you
+don't have to do much heavy lifting as we've done that all for you.
+
+And we've wrapped it all up in our simple software development kit SDK that you
+can drop right into your app.
+
+## Single contextual data request with current location
+
+> Fetch contextual data on the user's current location
+
+```objective_c
+[[LocationKit sharedInstance] getCurrentPlaceWithHandler:^(LKPlace *place, NSError *error) {
+    if (error == nil) {
+        NSLog(@"The user is in %@", place.address.locality);
+    } else {
+        NSLog(@"Error fetching place: %@", error);
+    }
+}];
+```
+
+=======
 
 *Returns:* A new CLLocation object, each time the device is moved to a new
 location.
@@ -763,15 +914,6 @@ and the user's current venue as an LKVenue.
 ## Streaming contextual data request on visit end
 
 # Data Model
-=======
-*Returns:* A [CLLocation](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocation_Class/index.html)
-object. This is the same object returned from Apple's Location Manager, so if
-your code currently uses that, this will return an item in the same format.
-
-## Streaming Background Location Updates
-
-
->>>>>>> New docs update
 
 # Downloads
 
