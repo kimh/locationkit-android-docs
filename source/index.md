@@ -84,7 +84,7 @@ The easiest way to start using LocationKit in your project is by using
 code on the right.
 
 ```ruby
-pod 'LocationKit', '~> 2.0.0'
+pod 'LocationKit', '~> 2.2.0'
 ```
 
 Then just run `pod install` from your project root.
@@ -137,11 +137,11 @@ We recommend starting LocationKit in your AppDelegate, particularly in the
 your app. Start it with the snippet on the right:
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:nil];
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:nil];
 ```
 
 ```swift
-LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
+LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:nil)
 ```
 
 Optionally, you can provide a `LocationKitDelegate` which will receive a
@@ -155,11 +155,11 @@ delegate will receive the background updates and they will be ignored.
 > Start LocationKit with a nil delegate
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:nil];
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:nil];
 ```
 
 ```swift
-LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
+LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:nil)
 ```
 
 *Use:* Kick off LocationKit using the API token you received from the [Developer
@@ -172,11 +172,11 @@ or arriving/leaving a place.
 > Start LocationKit with an object implementing the LocationKitDelegate protocol
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:myDelegate];
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate];
 ```
 
 ```swift
-LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:myDelegate)
+LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:myDelegate)
 ```
 
 *Notes:*
@@ -264,6 +264,179 @@ point them as across the street due to reflection.
 
 Suffice it to say there is a lot we do too in order to supply a higher
 accuracy location.
+=======
+
+# Quickstart
+
+Follow these instructions or watch our Getting Started video:
+
+<iframe class="videoEmbed" width="560" height="315"
+src="https://www.youtube.com/embed/Hm23x4krM_c" frameborder="0" allowfullscreen>
+</iframe>
+
+## 1. Obtain an API Key
+
+The first thing you'll need to do is to
+<a href="https://dashboard.locationkit.io">sign up for an account</a> on our
+Developer Dashboard. You will create your account and receive your API token.
+
+Within the Developer Dashboard, you will be able to find your API token, and
+find insights into the location-based usage of your app with LocationKit.
+
+## 2. Install the LocationKit CocoaPod
+
+The easiest way to start using LocationKit in your project is by using
+[CocoaPods](https://cocoapods.org); add LocationKit to your Podfile with the
+code on the right.
+
+```ruby
+pod 'LocationKit', '~> 2.0.0'
+```
+
+Then just run `pod install` from your project root.
+
+## 3. Configure your project
+
+In your project settings, under **Capabilities**, turn on the
+**Background Modes** switch and enable **Location Updates** as shown in the
+following screenshot:
+
+![Enable Location Updates](images/background_modes.png)
+
+## 4. Add 2 items to your Info.plist file
+
+Both of these items inform your users of how your app is using Location so
+provide a useful description. The users will see this text in a prompt when
+your app first starts LocationKit and in the Privacy settings for Location
+for your app.
+
+1. `NSLocationAlwaysUsageDescription`
+1. `Privacy - Location Usage Description`
+
+See our screenshot below:
+
+![Edit the Info.plist](images/info_plist.png)
+
+## 5. Create an Objective-C Bridging Header (Swift-only)
+Since LocationKit is an Objective-C library, you'll need to create an
+Objective-C bridging header in order to use it with Swift.
+
+1. Create a new Objective-C file to your project
+![New File](images/newfile.png)
+1. Give it any name you'd like. (e.g. 'Banana') For *File Type*, leave it at its
+default, Empty File and pick a place in your project to save it
+![File Type](images/filetype.png)
+1. When it prompts you to "configure an Objective-C bridging header" click
+*Create Bridging Header*
+![Bridging Header](images/bridgingheader.png)
+1. You can then delete the file you just created (e.g. 'Banana.m') but you'll
+notice a new file created called:
+*{Your Project Name}-Bridging-Header.h*
+1. Now import LocationKit in the bridging header file:
+`#import <LocationKit/LocationKit.h>`
+1. That's it! You can now use LocationKit in any of your Swift code!
+
+## 6. Start LocationKit
+
+We recommend starting LocationKit in your AppDelegate, particularly in the
+`didFinishLaunchingWithOptions` method so it's accessible and running throughout
+your app. Start it with the snippet on the right:
+
+```objective_c
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:nil];
+```
+
+```swift
+LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
+```
+
+Optionally, you can provide a `LocationKitDelegate` which will receive a
+constant stream of updates as they come in. Here we have supplied `nil` so no
+delegate will receive the background updates and they will be ignored.
+
+# Operation
+
+## Start LocationKit
+
+> Start LocationKit with a nil delegate
+
+```objective_c
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:nil];
+```
+
+```swift
+LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
+```
+
+Use: Kick off LocationKit using the API token you received from the [Developer
+Dashboard](https://dashboard.locationkit.io)
+
+Optional: Provide an object implementing our `LocationKitDelegate` protocol
+to receive background updates when events occur such as getting a new location
+or arriving/leaving a place.
+
+> Start LocationKit with an object implementing the LocationKitDelegate protocol
+
+```objective_c
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:myDelegate];
+```
+
+```swift
+LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:myDelegate)
+```
+
+Notes:
+
+* Due to the use of [ARC](https://en.wikipedia.org/wiki/Automatic_Reference_Counting)
+in iOS, you must make sure to keep this delegate around. So don't make it a
+local variable as it'll get cleaned up by iOS, we suggest adding it as an
+instance variable owned by your ViewController or AppDelegate or wherever it
+makes sense.
+* This will require permission from your users to run in the background, which
+you will have if you configured things following the instructions above.
+
+# High Accuracy Location
+
+LocationKit provides a higher level of location accuracy than Apple's
+CoreLocation.
+
+We are able to do this by utilizing sensors other than the GPS on the device and
+pairing it with our venue database and some proprietary algorithms to clean up
+the raw GPS points supplied by Apple's Location Manager and exclude outliers.
+
+Getting GPS data directly from Apple is like drinking from a firehose at times
+and getting a raw, unfiltered stream of locations and acting on them within your
+app can lead to inconsistencies which degrade experience for your users. By
+using LocationKit, you can have a greater confidence in the locations for your
+app without having to maintain a team of location experts in-house.
+
+As an illustrative example, the GPS will often drift, even when the user is not
+moving. It will sometimes give more accurate points and sometimes less accurate
+points. LocationKit will monitor and intelligently filter out a lot of the bad
+data from this GPS drift. If we notice the accelerometer and compass are unmoved
+yet the GPS thinks the device moved 100 feet away, we know it's likely suspect
+and will filter that point out, making sure your app doesn't get that crazy
+outlier.
+
+As another example, it is very difficult to ascertain the user location,
+particularly in an urban environment as the GPS signal tends to be attenuated by
+buildings and will often bounce off them as well. Using only the raw GPS feed
+you are very likely to end up with a bogus location for your user. LocationKit
+will automatically monitor not only the GPS data, but also the compass and
+accelerometer so it knows that the user didn't just teleport across the street,
+it is likely there is a GPS reflection off the nearby buildings. LocationKit
+will know, from the compass data that the user took a left turn into this
+building, which we have in our extensive [proprietary venue database](https://locationkit.io/smart-polygons-shaping-a-more-intelligent-location/)
+so we know which building the user entered even though their GPS chip alone may
+point them as across the street due to reflection.
+
+Suffice it to say there is a lot we do too in order to supply a higher
+accuracy location.
+
+By using LocationKit in your app, you put all the expertise of our location
+experts without having to think about it. Your location data will be more
+accurate resulting in a better experience for your users.
+>>>>>>> New docs update
 
 By using LocationKit in your app, you put all the expertise of our location
 experts without having to think about it. Your location data will be more
@@ -289,6 +462,7 @@ accurate resulting in a better experience for your users.
 ```swift
 LocationKit.sharedInstance().getCurrentLocationWithHandler { (location:CLLocation!, error:NSError!) -> Void in
     if let loc = location {
+<<<<<<< HEAD
         println("got location (\(loc.coordinate.latitude), \(loc.coordinate.longitude))")
     } else {
         println("got a nil location")
@@ -589,6 +763,15 @@ and the user's current venue as an LKVenue.
 ## Streaming contextual data request on visit end
 
 # Data Model
+=======
+*Returns:* A [CLLocation](https://developer.apple.com/library/ios/documentation/CoreLocation/Reference/CLLocation_Class/index.html)
+object. This is the same object returned from Apple's Location Manager, so if
+your code currently uses that, this will return an item in the same format.
+
+## Streaming Background Location Updates
+
+
+>>>>>>> New docs update
 
 # Downloads
 
