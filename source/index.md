@@ -84,7 +84,7 @@ The easiest way to start using LocationKit in your project is by using
 code on the right.
 
 ```ruby
-pod 'LocationKit', '~> 2.0.0'
+pod 'LocationKit', '~> 2.2.0'
 ```
 
 Then just run `pod install` from your project root.
@@ -137,11 +137,11 @@ We recommend starting LocationKit in your AppDelegate, particularly in the
 your app. Start it with the snippet on the right:
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:nil];
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:nil];
 ```
 
 ```swift
-LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
+LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:nil)
 ```
 
 Optionally, you can provide a `LocationKitDelegate` which will receive a
@@ -155,11 +155,11 @@ delegate will receive the background updates and they will be ignored.
 > Start LocationKit with a nil delegate
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:nil];
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:nil];
 ```
 
 ```swift
-LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:nil)
+LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:nil)
 ```
 
 *Use:* Kick off LocationKit using the API token you received from the [Developer
@@ -172,11 +172,11 @@ or arriving/leaving a place.
 > Start LocationKit with an object implementing the LocationKitDelegate protocol
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:myDelegate];
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate];
 ```
 
 ```swift
-LocationKit.sharedInstance().startWithApiToken("your_api_token", andDelegate:myDelegate)
+LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:myDelegate)
 ```
 
 *Notes:*
@@ -344,12 +344,16 @@ location.
 > Start LocationKit with an NSTimeInterval to get timed background updates
 
 ```objective_c
-[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" andDelegate:myDelegate withTimeInterval:myTimeInterval];
+NSDictionary *options = @{LKOptionTimedUpdatesInterval: @10}
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate options:options];
 ```
 
 ```swift
+var options:NSDictionary = [
+    LKOptionTimedUpdatesInterval: 10
+];
 var locationKit = LocationKit.sharedInstance()
-locationKit.startWithApiToken("your_api_token", andDelegate:myDelegate, andTimeInterval:myTimeInterval)
+locationKit.startWithApiToken("your_api_token", delegate:myDelegate, options:options)
 ```
 *Use:* Start LocationKit in a mode where it provides regularly timed updates,
 regardless of user behavior or other environmental considerations. Calls the
@@ -598,7 +602,7 @@ LocationKit is primarily available for download as a
 [CocoaPod](https://cocoapods.org/pods/LocationKit)
 
 ```ruby
-pod 'LocationKit', '~> 2.0.0'
+pod 'LocationKit', '~> 2.2.0'
 ```
 
 ## Cordova
