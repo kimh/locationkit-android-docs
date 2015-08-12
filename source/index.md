@@ -189,6 +189,92 @@ makes sense.
 * This will require permission from your users to run in the background, which
 you will have if you configured things following the instructions above.
 
+## Start LocationKit with options
+
+*Use:* We have some optional options which can be supplied to slightly alter the
+default behavior of LocationKit. To set them, start with an NSDictionary with
+our constants as the keys.
+
+The options we have available:
+
+> Example of starting LocationKit with the timed updates option
+
+```objective_c
+NSDictionary *options = @{LKOptionTimedUpdatesInterval: @10}
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate options:options];
+```
+
+```swift
+var options:NSDictionary = [
+    LKOptionTimedUpdatesInterval: 10
+];
+var locationKit = LocationKit.sharedInstance()
+locationKit.startWithApiToken("your_api_token", delegate:myDelegate, options:options)
+```
+
+* **LKOptionTimedUpdatesInterval** - Start LocationKit with a timed interval
+update. For example, this would allow you to receive an update every 60 seconds
+overriding LocationKit's default behavior. Note: For the first 5 minutes after
+install, LocationKit will be in a higher mode so your interval won't take effect
+until after that first 5 minutes. Also, this has the potential to significantly
+increase battery drain so generally we don't recommend it!
+
+> Example of starting LocationKit with iOS CoreMotion manager rather than accelerometer
+
+```objective_c
+NSDictionary *options = @{LKOptionUseiOSMotionActivity: YES}
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate options:options];
+```
+
+```swift
+var options:NSDictionary = [
+    LKOptionUseiOSMotionActivity: true
+];
+var locationKit = LocationKit.sharedInstance()
+locationKit.startWithApiToken("your_api_token", delegate:myDelegate, options:options)
+```
+
+* **LKOptionUseiOSMotionActivity** - By default, LocationKit will use the
+device's accelerometer to determine user motion activity and take action based
+on it. We do things like throttle the GPS up and down to minimize battery drain
+based on whether a user is walking or sitting still. By enabling this option,
+you can tell LocationKit to use the CoreMotion manager instead of the
+accelerometer. This will result in lower battery drain because it uses the
+motion coprocessor on the device for this detection rather than the
+accelerometer, however it will surface a dialog to the user if your app does not
+yet have permission to track the user's movements. For some apps (e.g. a fitness
+app) you have likely already prompted the user for this permission so it is wise
+to turn this on.
+
+> Example of starting LocationKit in Foreground-only mode
+
+```objective_c
+NSDictionary *options = @{LKOptionWhenInUseOnly: YES}
+[[LocationKit sharedInstance] startWithApiToken:@"your_api_token" delegate:myDelegate options:options];
+```
+
+```swift
+var options:NSDictionary = [
+    LKOptionWhenInUseOnly: true
+];
+var locationKit = LocationKit.sharedInstance()
+locationKit.startWithApiToken("your_api_token", delegate:myDelegate, options:options)
+```
+
+* **LKOptionWhenInUseOnly** - By default, LocationKit requires the
+`NSLocationAlwaysUsageDescription` permission to be set in the Info.plist and
+will prompt the user for permission to run always in the background. You can
+override this and require LocationKit to only run in the foreground. To do this,
+add the `NSLocationWhenInUseUsageDescription` permission to the Info.plist.
+Note: this will severely impact the usefulness of the location analytics we
+provide, make all of the background updates impossible (because we cannot
+provide background updates without access to the user's location in the
+background), and diminish the accuracy of place lookups (because a lot of what
+we do with LocationKit involves monitoring sensors on the device while the app
+is in the background and we can't do that without having permission to do so)
+If you have questions, contact us at
+[support@locationkit.io](support@locationkit.io)
+
 ## Pause
 
 > To pause LocationKit
