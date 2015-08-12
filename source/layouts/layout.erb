@@ -24,6 +24,7 @@ under the License.
 
     <%= stylesheet_link_tag :screen, media: :screen %>
     <%= stylesheet_link_tag :print, media: :print %>
+    <link rel="stylesheet" href="https://yui.yahooapis.com/pure/0.6.0/pure-min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <% if current_page.data.search %>
       <%= javascript_include_tag  "all" %>
@@ -38,65 +39,109 @@ under the License.
         });
       </script>
     <% end %>
+    <!-- Typekit -->
+        <script src="//use.typekit.net/rcz1dag.js"></script>
+        <script>try{Typekit.load();}catch(e){}</script>
+    <!-- END Typekit -->
   </head>
 
   <body class="<%= page_classes %>">
-    <a href="#" id="nav-button">
-      <span>
-        NAV
-        <%= image_tag('navbar.png') %>
-      </span>
-    </a>
-    <div class="tocify-wrapper">
-      <%= image_tag "logo.png" %>
-      <% if language_tabs %>
-        <div class="lang-selector">
-          <% language_tabs.each do |lang| %>
-            <% if lang.is_a? Hash %>
-              <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-            <% else %>
-              <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-            <% end %>
-          <% end %>
-        </div>
-      <% end %>
-      <% if current_page.data.search %>
-        <div class="search">
-          <input type="text" class="search" id="input-search" placeholder="Search">
-        </div>
-        <ul class="search-results"></ul>
-      <% end %>
-      <div id="toc">
-      </div>
-      <% if current_page.data.toc_footers %>
-        <ul class="toc-footer">
-          <% current_page.data.toc_footers.each do |footer| %>
-            <li><%= footer %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    </div>
-    <div class="page-wrapper">
-      <div class="dark-box"></div>
-      <div class="content">
-        <%= yield %>
-        <% current_page.data.includes && current_page.data.includes.each do |include| %>
-          <%= partial "includes/#{include}" %>
-        <% end %>
-      </div>
-      <div class="dark-box">
-        <% if language_tabs %>
-          <div class="lang-selector">
-            <% language_tabs.each do |lang| %>
-              <% if lang.is_a? Hash %>
-                <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
-              <% else %>
-                <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
-              <% end %>
-            <% end %>
+
+      <div class="header-bar">
+          <div class="pure-g">
+              <div class="pure-u-4-5">
+                  <div class="pure-menu pure-menu-horizontal">
+                      <a href="https://locationkit.io" class="pure-menu-heading pure-menu-link"><img src='https://cdn.socialradar.com/images/locationkit-logoonly.png' height=64 /></a>
+                      <ul class="pure-menu-list">
+                          <li class="pure-menu-item">
+                              <h2><a href="https://dashboard.locationkit.io" class="pure-menu-link">Dashboard</a></h2>
+                          </li>
+                          <li class="pure-menu-item">
+                              <h2><a href="https://community.locationkit.io" class="pure-menu-link">Community</a></h2>
+                          </li>
+                          <li class="pure-menu-item">
+                              <h2><a href="https://docs.locationkit.io" class="pure-menu-link">Documentation</a></h2>
+                          </li>
+                          <li class="pure-menu-item">
+                              <h2><a href="https://locationkit.io/developer/faqs/" class="pure-menu-link">FAQs</a></h2>
+                          </li>
+                          <li class="pure-menu-item">
+                              <h2><a href="https://locationkit.io/pricing/" class="pure-menu-link">Pricing</a></h2>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="pure-u-1-5">
+                  <div class="pure-menu pure-menu-horizontal menu-right-buttons">
+                      <ul class="pure-menu-list">
+                          <li class="pure-menu-item sign-up">
+                              <a href="https://dashboard.locationkit.io/#/sign-up" class="pure-menu-link">Sign up free</a>
+                          </li>
+                          <li class="pure-menu-item sign-in">
+                              <a href="https://dashboard.locationkit.io/#/sign-in" class="pure-menu-link">Sign in</a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
           </div>
-        <% end %>
       </div>
+    <div class="content-wrapper">
+        <a href="#" id="nav-button">
+            <span>
+                NAV
+                <%= image_tag('navbar.png') %>
+            </span>
+        </a>
+        <div class="tocify-wrapper">
+            <% if language_tabs %>
+                <div class="lang-selector">
+                    <% language_tabs.each do |lang| %>
+                        <% if lang.is_a? Hash %>
+                            <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
+                        <% else %>
+                            <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+                        <% end %>
+                    <% end %>
+                </div>
+            <% end %>
+            <% if current_page.data.search %>
+                <div class="search">
+                    <input type="text" class="search" id="input-search" placeholder="Search">
+                </div>
+                <ul class="search-results"></ul>
+            <% end %>
+            <div id="toc">
+            </div>
+            <% if current_page.data.toc_footers %>
+                <ul class="toc-footer">
+                    <% current_page.data.toc_footers.each do |footer| %>
+                        <li><%= footer %></li>
+                    <% end %>
+                </ul>
+            <% end %>
+        </div>
+        <div class="page-wrapper">
+            <div class="dark-box"></div>
+            <div class="content">
+                <%= yield %>
+                <% current_page.data.includes && current_page.data.includes.each do |include| %>
+                    <%= partial "includes/#{include}" %>
+                <% end %>
+            </div>
+            <div class="dark-box">
+                <% if language_tabs %>
+                    <div class="lang-selector">
+                        <% language_tabs.each do |lang| %>
+                            <% if lang.is_a? Hash %>
+                                <a href="#" data-language-name="<%= lang.keys.first %>"><%= lang.values.first %></a>
+                            <% else %>
+                                <a href="#" data-language-name="<%= lang %>"><%= lang %></a>
+                            <% end %>
+                        <% end %>
+                    </div>
+                <% end %>
+            </div>
+        </div>
     </div>
   </body>
 </html>

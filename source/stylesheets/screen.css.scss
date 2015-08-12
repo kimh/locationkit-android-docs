@@ -57,6 +57,57 @@ html, body {
     $nav-subitem-bg;
 }
 
+// START Headerbar
+$sr-orange: #FC6719;
+
+.header-bar {
+  margin: 0;
+  height: 84px;
+  background-color: #fff;
+  display: block;
+  border-bottom: 1px solid #dedede;
+  z-index: 16777271;
+  h2 {
+    margin-top: 0;
+    color: $sr-orange;
+    padding-top: 15px;
+    text-transform: uppercase;
+    a {
+      color: $sr-orange;
+      text-decoration: none;
+      font-weight: 300;
+    }
+  }
+}
+
+.menu-right-buttons {
+  float: right;
+  padding-top: 15px;
+  .pure-menu-item {
+    border: 2px solid $sr-orange;
+    border-radius: 5px;
+    font-family: "Lato", Helvetica, Arial, sanserif;;
+  }
+  .sign-up {
+    a {
+      color: #fff;
+    }
+    background-color: $sr-orange;
+  }
+
+  .sign-in {
+    a {
+      color: $sr-orange
+    }
+  }
+}
+
+// END Headerbar
+
+.content-wrapper {
+  top: 100px;
+}
+
 .tocify-wrapper {
   transition: left 0.3s ease-in-out;
 
@@ -64,7 +115,7 @@ html, body {
   overflow-x: hidden;
   position: fixed;
   z-index: 30;
-  top: 0;
+  top: 85px;
   left: 0;
   bottom: 0;
   width: $nav-width;
@@ -146,13 +197,14 @@ html, body {
     }
   }
 
-
+  // Left nav
   .tocify-item>a, .toc-footer li {
     padding: 0 $nav-padding 0 $nav-padding;
     display: block;
     overflow-x: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 140%;
   }
 
   // The Table of Contents is composed of multiple nested
@@ -162,7 +214,7 @@ html, body {
     list-style: none;
     margin: 0;
     padding: 0;
-    line-height: 28px;
+    line-height: 38px;
   }
 
   li {
@@ -170,12 +222,11 @@ html, body {
     transition-property: background;
     transition-timing-function: linear;
     transition-duration: 230ms;
+    font-weight: 300;
   }
 
   // This is the currently selected ToC entry
   .tocify-focus {
-    box-shadow: 0px 1px 0px $nav-active-shadow;
-    background-color: $nav-active-bg;
     color: $nav-active-text;
   }
 
@@ -183,15 +234,12 @@ html, body {
   // in the table of contents.
   .tocify-subheader {
     display: none; // tocify will override this when needed
-    background-color: $nav-subitem-bg;
-    font-weight: 500;
+    font-weight: 200;
     .tocify-item>a {
       padding-left: $nav-padding + $nav-indent;
-      font-size: 12px;
+      font-size: 14px;
     }
 
-    // for embossed look:
-    @include embossed-bg;
     &>li:last-child {
       box-shadow: none; // otherwise it'll overflow out of the subheader
     }
@@ -564,6 +612,14 @@ html, body {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Custom SocialRadar Additions
+////////////////////////////////////////////////////////////////////////////////
+
+.videoEmbed {
+  width: 50%
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // RESPONSIVE DESIGN
 ////////////////////////////////////////////////////////////////////////////////
 // These are the styles for phones and tablets
@@ -616,5 +672,9 @@ html, body {
 
   %right-col + %left-col {
     margin-top: $main-padding;
+  }
+
+  .videoEmbed {
+    width: 100%
   }
 }
