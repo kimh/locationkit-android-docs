@@ -684,6 +684,167 @@ and the user's current venue as an LKVenue.
 
 # Data Model
 
+# Change Log
+
+## 2.2.0
+<h4>August 11, 2015</h4>
+
+* Now LocationKit can also run in foreground only mode not requiring permissions
+  from the user to always run in the background! Note: this will reduce the
+  usefulness of the location analytics and metrics we serve as well as make all
+  background location updates stop. It will also diminish accuracy so we don't
+  recommend it if you want most of our enhancments. However, it is available for
+  developers who want this functionality and many have requested it. [Contact us
+  for more details](mailto:support@locationkit.io)
+* Minor version bump due to breaking initialization API change.
+    * Change to initialization:
+        * Was: `[LocationKit startWithApiToken:@"your_token_here" andDelegate:myDelegate]`
+        * Now: `[LocationKit startWithApiToken:@"your_token_here" delegate:myDelegate]`
+    * More details will come in next round of documentation updates
+
+## 2.1.1
+<h4>August 8, 2015</h4>
+
+* Fixed a bug where end visit would sometimes not be reported correctly when a
+  user moved far away from a venue as it should, so the end visit handler would
+  be delayed until the next visit. Now is correctly called upon leaving a venue
+
+## 2.1.0
+<h4>August 7, 2015</h4>
+
+* New minor version due to the addition of significant new features. Please
+  update your Podfile to `pod 'LocationKit', '~>2.1.0'` to ensure you get this
+  and subsequent releases!
+* New Features
+    * Now with significantly less battery drain under normal usage. LocationKit
+      will now, more than ever, keep battery drain low by monitoring user behavior
+      and throttling down to lower battery drain mode when possible without
+      sacrificing accuracy when the user is moving. We call this "best for venue
+      detection" mode and will drain the smallest amount of battery while
+      accurately identifying user visits
+    * Addition of new delegate method `willChangeActivityMode` which will be
+      called when the user's activity mode will change. This currently has 4
+      possible values for which we have constants: `LKActivityModeUnknown`,
+      `LKActivityModeStationary`, `LKActivityModeWalking`, and
+      `LKActivityModeAutomotive`. These can be used to trigger anything, but is
+      ideal paired with our next new feature. This is something we had and used
+      internally to LocationKit and are now exposing externally to developers.
+    * Addition of `applyOperationMode` which can be used to override the location
+      settings. This allows for great customization. Paired with the previous
+      feature, this would allow you to say "when driving, set the mode to high
+      rather than the default." It can be paired with the activityModes, but can
+      also be used on its own however you see fit. We suggest changing back to
+      Auto which is our standard mode of operation whenever possible.
+    * New readonly property `deviceId` to get the id of this device as referenced
+      by LocationKit. Important for the "people nearby" functionality as this
+      deviceId is referenced there.
+* Note: All of these new features will be better documented shortly!
+
+
+## 2.0.9
+<h4>July 29, 2015</h4>
+
+* Bugfixes
+    * Fix an issue causing higher battery drain than expected due to continued
+      use of the magnetic compass while the device was at rest
+    * Fix a bug where queued network requests generated when the device had no
+      network connection would sometimes not be dequeued until app launch
+* New Features
+    * Now the first location point is computed instantly, causing the first call
+      to `getCurrentLocationWithHandler` to return much more quickly
+    * New method `getPriorVisits` added to retrieve the user's prior visits, up
+      to 100
+    * New method `getPeopleAtCurrentVenue` added to retrieve the device ids of
+      other users of your app currently in the same venue
+    * New method `getPeopleNearby` added to retrieve other users nearby (but not
+      necessarily in the same venue)
+    * Now with better international support -- the LocationKit venue database
+      only covers the US, now seamlessly falling back to Apple reverse geocoding
+      if a location is detected outside the US so visit callbacks should work
+      fine internationally
+
+
+## 2.0.8
+<h4>July 21, 2015</h4>
+
+* Fix a bug in the 2.0.7 CocoaPod which caused linker errors when trying to
+  build a project with LocationKit
+
+## 2.0.7
+<h4>July 21, 2015</h4>
+
+* DO NOT INSTALL, CocoaPod error fixed in 2.0.8
+* Major rework to the place detection algorithm which should make it perform far
+    better, particulacly in urban environments. Now:
+    * Using more more sensors on the phone (accelerometer, compass) to refine
+      detection of the place the user entered
+    * Even quicker place detection, generally resolves a place in under 90
+      seconds upon the user's arrival
+    * With an even greater accuracy of place detection
+    * Using more intelligence server-side to refine place detection including
+      past history and machine learning
+
+## 2.0.6
+<h4>July 6, 2015</h4>
+
+* Moar bugfixes:
+    * Fix LKVisit to make it encodable
+    * Fix an issue where, under some circumstances, a visit could be started but not properly ended
+    * Fix a bug where the average speed calculation could be off if too few samples were present
+* Rework the way all network calls are handled in LocationKit:
+    * If the network is unavailable at the time of the request, queue it and retry when it is available
+    * This may result in the didStartVisit and didEndVisit callbacks being delayed (in the event there is no network available when the visit is detected as starting or ending), but they should be fired with the correct start and end time for the visit
+    * Having these handlers delayed is better than the prior behavior of losing a visit start or end if the network was unavailable at the time of visit start
+    * This includes network handling of not only visits, but reverse geocoding, search, and all other requests which should also help with momentary network blips
+
+## 2.0.5
+<h4>June 26, 2015</h4>
+
+* As always, some bugfixes:
+    * Fix the coordinate on the LKAddress to return a proper CLLocationCoordinate2D rather than a dictionary
+    * Remove an NSLog statement which accidentally made its way into the prod build
+    * Fix a typo in the LocationKit API (`searchForPlacseWithRequest` -> `searchForPlacesWithRequest`)
+
+## 2.0.4
+<h4>June 23, 2015</h4>
+
+* More bugfixes
+* Addition of `didFailWithError` LocationKitDelegate method so developer can now get errors rather than having it fail silently
+* Now place search has the ability to take another location (rather than only using the current location of the device)
+* This release includes the following new features:
+    * Ability to start LocationKit and receive location updates on a specified time interval with new static method `startWithApiToken:withTimeInterval:andDelegate`
+    * Ability to reverse geocode (resolve place from lat/lng) at a place other than the device's current location with `getPlaceForLocation:withHandler`
+
+## 2.0.3
+<h4>June 18, 2015</h4>
+
+* Fixes a critical bug in 2.0.2
+
+## 2.0.2
+<h4>June 18, 2015</h4>
+
+* Bugfixes
+* This release includes the following new features:
+    * Ability to search for places nearby
+    * Support for sending additional demographic data to server for analytics
+
+## 2.0.1
+<h4>June 17, 2015</h4>
+
+* Bugfixes
+
+## 2.0.0
+<h4>June 15, 2015</h4>
+
+* After months in private beta, this is the first public release of LocationKit!
+* Initial release includes the following features:
+    * Single filtered higher accuracy location point request
+    * Single place request to find user's current address and venue
+    * Streaming, filtered location updates for greater accuracy
+    * Streaming visit requests to receive notification when user starts and ends a visit
+    * Reporting and analytics sent to LocationKit developer portal
+
+
 # Downloads
 
 ## CocoaPods
