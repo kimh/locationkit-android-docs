@@ -185,12 +185,13 @@ $sr-orange: #FC6719;
     @include embossed-bg;
 
     li {
+      color: $sr-orange;
       margin: 1em $nav-padding;
       line-height: 1;
     }
 
     a {
-      color: $nav-text;
+      color: $sr-orange;
       text-decoration: none;
 
       &:hover {
@@ -352,12 +353,12 @@ $sr-orange: #FC6719;
     outline: 0;
 
     &:active, &:focus {
-      background-color: $lang-select-pressed-bg;
+      background-color: $sr-orange;
       color: $lang-select-pressed-text;
     }
 
     &.active {
-      background-color: $lang-select-active-bg;
+      background-color: $sr-orange;
       color: $lang-select-active-text;
     }
   }
