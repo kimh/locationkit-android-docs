@@ -8,11 +8,9 @@ deployment:
   development:
     branch: development
     commands:
-      - rake build
       - ./stout deploy --env development --key $AMAZON_KEY_DEV --secret $AMAZON_SECRET_DEV
 
   production:
     branch: master
     commands:
-      - rake build
       - ./stout deploy --env production --key $AMAZON_KEY_PROD --secret $AMAZON_SECRET_PROD
