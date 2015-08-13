@@ -1,6 +1,6 @@
 default:
   root: 'build/'
-  dest: 'ios'
+  dest: 'android'
 
 production:
   bucket: 'docs.locationkit.io'
