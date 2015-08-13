@@ -31,35 +31,34 @@ LocationKit enables you to add enhanced location capabilities, and therefore
 personalized experiences, to your mobile applications without the need for
 location expertise.
 
+Looking for our [Android documentation](https://docs.locationkit.io/android)?
+
 ### How it works
 
 LocationKit processes location signals through a private location manager
 instance, analyzing activity and validating data within the private SocialRadar
 cloud. It pairs this with other sensor information on the device such as the
 compass, accelerometer, and others to more accurately determine the user's
-location while minimizing battery drain. Anonymized consumer insights may be
+location while minimizing battery drain. Location data is seamlessly paired with
+SocialRadar's best of breed location database full of addresses, venues, events,
+and more which it delivers to your app. Anonymized consumer insights may be
 shared with app publishers and marketing firms.
-
-The LocationKit framework works independently of the host app, and other than
-the app providing match key data to the framework, no interaction between the
-app and framework is required to enable LocationKit to work properly.
 
 ### Operating Requirements
 
-- Device capable of running iOS 7.x or above (Android coming soon!)
+- Device capable of running iOS 7.x or above
 - Device capable of properly returning location signals
 
 ### Battery Consumption
 
 Battery consumption is extremely efficient – LocationKit averages less than 1.7%
 battery consumption per hour under normal usage, depending on the type of device
-used and user activity level. Additional details on battery consumption
-available in the docs.
+used and user activity level.
 
 ### Transparent operation
 
-LocationKit never surfaces dialog boxes, errors, or notifications directly to a
-consumer.
+Aside from the required iOS Location Services dialog, LocationKit never surfaces
+dialog boxes, errors, or notifications directly to a consumer.
 
 # Quickstart
 
@@ -77,6 +76,9 @@ Developer Dashboard. You will create your account and receive your API token.
 
 Within the Developer Dashboard, you will be able to find your API token, and
 find insights into the location-based usage of your app with LocationKit.
+
+We have seeded the Dashboard with some sample data so you can explore the data
+and insights your app will get once you've integrated LocationKit.
 
 ## 2. Install the LocationKit CocoaPod
 
@@ -185,15 +187,16 @@ LocationKit.sharedInstance().startWithApiToken("your_api_token", delegate:myDele
 * Due to the use of [ARC](https://en.wikipedia.org/wiki/Automatic_Reference_Counting)
 in iOS, you must make sure to keep this delegate around. So don't make it a
 local variable as it'll get cleaned up by iOS, we suggest adding it as an
-instance variable owned by your ViewController or AppDelegate or wherever it
-makes sense.
+instance variable owned by your ViewController or AppDelegate or wherever you
+have initialized LocationKit.
 * This will require permission from your users to run in the background, which
-you will have if you configured things following the instructions above.
+you will have if you configured things following the Getting Started
+instructions above.
 
 ## Start LocationKit with options
 
-*Use:* We have some optional options which can be supplied to slightly alter the
-default behavior of LocationKit. To set them, start with an NSDictionary with
+*Use:* We have some options which can be supplied to slightly alter the
+default behavior of LocationKit. To use them, start with an NSDictionary with
 our constants as the keys.
 
 The options we have available:
@@ -239,9 +242,9 @@ locationKit.startWithApiToken("your_api_token", delegate:myDelegate, options:opt
 device's accelerometer to determine user motion activity and take action based
 on it. We do things like throttle the GPS up and down to minimize battery drain
 based on whether a user is walking or sitting still. By enabling this option,
-you can tell LocationKit to use the CoreMotion manager instead of the
-accelerometer. This will result in lower battery drain because it uses the
-motion coprocessor on the device for this detection rather than the
+you can tell LocationKit to use the [CMMotionActivityManager](https://developer.apple.com/library/ios/documentation/CoreMotion/Reference/CMMotionActivityManager_class/index.html#//apple_ref/occ/cl/CMMotionActivityManager)
+instead of the accelerometer. This will result in lower battery drain because it
+uses the motion coprocessor on the device for this detection rather than the
 accelerometer, however it will surface a dialog to the user if your app does not
 yet have permission to track the user's movements. For some apps (e.g. a fitness
 app) you have likely already prompted the user for this permission so it is wise
