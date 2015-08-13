@@ -687,7 +687,7 @@ and the user's current venue as an LKVenue.
 # Change Log
 
 ## 2.2.0
-<h4>August 11, 2015</h4>
+<h3>August 11, 2015</h3>
 
 * Now LocationKit can also run in foreground only mode not requiring permissions
   from the user to always run in the background! Note: this will reduce the
@@ -703,14 +703,14 @@ and the user's current venue as an LKVenue.
     * More details will come in next round of documentation updates
 
 ## 2.1.1
-<h4>August 8, 2015</h4>
+<h3>August 8, 2015</h3>
 
 * Fixed a bug where end visit would sometimes not be reported correctly when a
   user moved far away from a venue as it should, so the end visit handler would
   be delayed until the next visit. Now is correctly called upon leaving a venue
 
 ## 2.1.0
-<h4>August 7, 2015</h4>
+<h3>August 7, 2015</h3>
 
 * New minor version due to the addition of significant new features. Please
   update your Podfile to `pod 'LocationKit', '~>2.1.0'` to ensure you get this
@@ -742,7 +742,7 @@ and the user's current venue as an LKVenue.
 
 
 ## 2.0.9
-<h4>July 29, 2015</h4>
+<h3>July 29, 2015</h3>
 
 * Bugfixes
     * Fix an issue causing higher battery drain than expected due to continued
@@ -765,13 +765,13 @@ and the user's current venue as an LKVenue.
 
 
 ## 2.0.8
-<h4>July 21, 2015</h4>
+<h3>July 21, 2015</h3>
 
 * Fix a bug in the 2.0.7 CocoaPod which caused linker errors when trying to
   build a project with LocationKit
 
 ## 2.0.7
-<h4>July 21, 2015</h4>
+<h3>July 21, 2015</h3>
 
 * DO NOT INSTALL, CocoaPod error fixed in 2.0.8
 * Major rework to the place detection algorithm which should make it perform far
@@ -785,7 +785,7 @@ and the user's current venue as an LKVenue.
       past history and machine learning
 
 ## 2.0.6
-<h4>July 6, 2015</h4>
+<h3>July 6, 2015</h3>
 
 * Moar bugfixes:
     * Fix LKVisit to make it encodable
@@ -798,7 +798,7 @@ and the user's current venue as an LKVenue.
     * This includes network handling of not only visits, but reverse geocoding, search, and all other requests which should also help with momentary network blips
 
 ## 2.0.5
-<h4>June 26, 2015</h4>
+<h3>June 26, 2015</h3>
 
 * As always, some bugfixes:
     * Fix the coordinate on the LKAddress to return a proper CLLocationCoordinate2D rather than a dictionary
@@ -806,7 +806,7 @@ and the user's current venue as an LKVenue.
     * Fix a typo in the LocationKit API (`searchForPlacseWithRequest` -> `searchForPlacesWithRequest`)
 
 ## 2.0.4
-<h4>June 23, 2015</h4>
+<h3>June 23, 2015</h3>
 
 * More bugfixes
 * Addition of `didFailWithError` LocationKitDelegate method so developer can now get errors rather than having it fail silently
@@ -816,12 +816,12 @@ and the user's current venue as an LKVenue.
     * Ability to reverse geocode (resolve place from lat/lng) at a place other than the device's current location with `getPlaceForLocation:withHandler`
 
 ## 2.0.3
-<h4>June 18, 2015</h4>
+<h3>June 18, 2015</h3>
 
 * Fixes a critical bug in 2.0.2
 
 ## 2.0.2
-<h4>June 18, 2015</h4>
+<h3>June 18, 2015</h3>
 
 * Bugfixes
 * This release includes the following new features:
@@ -829,12 +829,12 @@ and the user's current venue as an LKVenue.
     * Support for sending additional demographic data to server for analytics
 
 ## 2.0.1
-<h4>June 17, 2015</h4>
+<h3>June 17, 2015</h3>
 
 * Bugfixes
 
 ## 2.0.0
-<h4>June 15, 2015</h4>
+<h3>June 15, 2015</h3>
 
 * After months in private beta, this is the first public release of LocationKit!
 * Initial release includes the following features:
