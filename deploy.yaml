@@ -1,0 +1,9 @@
+default:
+  root: 'build/'
+  dest: 'ios'
+
+production:
+  bucket: 'docs.locationkit.io'
+
+development:
+  bucket: 'docs-next.locationkit.io'
