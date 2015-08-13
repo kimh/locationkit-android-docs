@@ -6,14 +6,16 @@ language_tabs:
     - swift: Swift
 
 toc_footers:
-- <a href='https://locationkit.io'>Website</a>
-- <a href='https://dashboard.locationkit.io'>Dashboard</a>
-- <a href='https://community.locationkit.io'>Community</a>
-- <a href='https://docs.locationkit.io'>Documentation</a>
-- <a href='https://locationkit.io/developer/faqs'>FAQs</a>
-- <a href='https://locationkit.io/pricing'>Pricing</a>
+    - <a href='https://locationkit.io'>Website</a>
+    - <a href='https://dashboard.locationkit.io'>Dashboard</a>
+    - <a href='https://community.locationkit.io'>Community</a>
+    - <a href='https://docs.locationkit.io'>Documentation</a>
+    - <a href='https://locationkit.io/developer/faqs'>FAQs</a>
+    - <a href='https://locationkit.io/pricing'>Pricing</a>
+    - <a href='http://github.com/tripit/slate'>Documentation Powered by Slate</a>
 
 includes:
+    - errors
 
 search: true
 ---
