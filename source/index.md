@@ -30,7 +30,7 @@ LocationKit enables you to add enhanced location capabilities, and therefore
 personalized experiences, to your mobile applications without the need for
 location expertise.
 
-Looking for our [iOS documentation](https://docs.locationkit.io/iOS)?
+Looking for our [iOS documentation](https://docs.locationkit.io/)?
 
 ### How it works
 
