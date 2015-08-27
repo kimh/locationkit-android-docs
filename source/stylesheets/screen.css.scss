@@ -90,6 +90,10 @@ $sr-orange: #FC6719;
 .menu-right-buttons {
   float: right;
   padding-top: 15px;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+
   .pure-menu-item {
     border: 2px solid $sr-orange;
     border-radius: 5px;
@@ -106,6 +110,10 @@ $sr-orange: #FC6719;
     a {
       color: $sr-orange
     }
+  }
+
+  li {
+    margin-left: 5px;
   }
 }
 
