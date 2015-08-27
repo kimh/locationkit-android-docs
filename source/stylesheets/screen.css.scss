@@ -60,13 +60,18 @@ html, body {
 // START Headerbar
 $sr-orange: #FC6719;
 
+.header-wrapper {
+  margin: auto;
+}
+
 .header-bar {
-  margin: 0;
-  height: 84px;
+  margin: auto;
+  height: 76px;
   background-color: #fff;
   display: block;
   border-bottom: 1px solid #dedede;
   z-index: 16777271;
+  max-width: 1360px;
   h2 {
     margin-top: 0;
     color: $sr-orange;
