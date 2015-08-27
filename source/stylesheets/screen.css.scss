@@ -62,6 +62,7 @@ $sr-orange: #FC6719;
 
 .header-wrapper {
   margin: auto;
+  border-bottom: 1px solid #dedede;
 }
 
 .header-bar {
@@ -69,7 +70,6 @@ $sr-orange: #FC6719;
   height: 76px;
   background-color: #fff;
   display: block;
-  border-bottom: 1px solid #dedede;
   z-index: 16777271;
   max-width: 1360px;
   h2 {
