@@ -32,6 +32,8 @@ location expertise.
 
 Looking for our [iOS documentation](https://docs.locationkit.io/)?
 
+### Javadoc
+Looking for the [JavaDocs](javadoc/index.html)
 ### How it works
 
 LocationKit processes location signals through a private location manager
@@ -82,7 +84,7 @@ repositories {
 	}
 }
 dependencies {
-	compile ('socialradar:locationkit:2.0.1+@aar') { transitive = true }
+	compile ('socialradar:locationkit:2.2.++@aar') { transitive = true }
 }
 ```
 
@@ -138,7 +140,11 @@ LocationKit registers a boot receiver and will automatically restart on device r
         mBound = false;
     }
  };
-    private LKListener mLocationListener = new LKListener() {
+    private ILocationKitEventListener mLocationListener = new ILocationKitEventListener() {
+    	@Override 
+    	public void onChangedActivityMode(LKActivityMode mode) {
+    		//detect new activty mode (e.g. LKActivityMode.STATIONARY)
+    	}
         @Override
         public void onStartVisit(LKVisit visit) {
 
@@ -221,19 +227,30 @@ location).  LocationKit provides additional options for receiving events and an
 optional interval for location events to be sent continuously regardless of
 position change.
 
+Build LocationKitServiceOptions to set options
+
+```
+  LocationKitServiceOptions.Builder builder = new LocationKitServiceOptions.Builder();
+  builder.withInterval(60*l*1000l*15l*) //send a broadcast, pending intent or invoke listener at interval with current location
+         .withVenueFilter(filter)
+         .withVenueFilter(anotherFilter) // define with LKVenueFilter to match a specific type of venue for visits.
+         .withPowerLevel(LKPowerLevel.LOW)
+  LocationKitServiceOptions options = builder.build();
+```
+
 1. LocationKit with Event Listener
 	-`startWithApiToken(String apiToken, LKListener listener)` -- as shown above
 	-`startWithApiToken(String apiToken, LKListener listener, Looper looper)` -- provide an optional looper to recive events off UX thread
-	-`startWithApiToken(String apiToken, Long interval, LKListener listener)` -- receive events at a specified interval in milliseconds (e.g. 60*5*1000l is every five minutes)
-	-`startWithApiToken(String apiToken, Long interval, LKListener listener, Looper looper)` include a loooper and interval
+	-`startWithApiToken(String apiToken, LocationKitServiceOptions options, LKListener listener)` -- receive events at a specified interval in milliseconds (e.g. 60*5*1000l is every five minutes)
+	-`startWithApiToken(String apiToken, LocationKitServiceOptions optionsl, LKListener listener, Looper looper)` include a loooper and interval
 2. LocationKit with PendingIntent
 	-`startWithApiToken(String apiToken, PendingIntent intent)`
-	-`startWithApiToken(String apiToken, Long interval, PendingIntent intent)` call pending intent at specified interval (as defined above)
+	-`startWithApiToken(String apiToken, LocationKitServiceOptions options, PendingIntent intent)` call pending intent at specified interval (as defined above)
 
 3. LocationKit with custom broadcast action
 Developers may implement a custom broadcast receiver to handle these events.  
 	-`startWithApiToken(String apiToken, String action)`
-	-`startWithApiToken(String apiToken, Long interval, String action) ` 
+	-`startWithApiToken(String apiToken, LocationKitServiceOptions options, String action) ` 
 
 # Real-time information
 
