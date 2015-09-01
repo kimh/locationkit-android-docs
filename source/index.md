@@ -389,6 +389,10 @@ mLocationKit.getCurrentLocation(new LKCallback<Location> callback() {
 ```
 
 # Change Log
+## 2.2.1
+<h3>September 2015</h3>
+* Updated release with new LKActivityMode, LKVenueFilter and LKPowerLevel settings.
+* startWithApi now takes LocationKitServiceOptions in place of the interval available in prior releases
 
 ## 2.0.1
 <h3>July 27, 2015</h3>
