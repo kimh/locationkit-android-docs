@@ -84,7 +84,7 @@ repositories {
 	}
 }
 dependencies {
-	compile ('socialradar:locationkit:2.2.++@aar') { transitive = true }
+	compile ('socialradar:locationkit:2.2.+@aar') { transitive = true }
 }
 ```
 
