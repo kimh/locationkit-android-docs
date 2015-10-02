@@ -104,7 +104,7 @@ LocationKit registers a boot receiver and will automatically restart on device r
 
 ```java
   private Boolean mBound = false;
-  private LocationKit.LKBinder mLocationKit
+  private ILocationKitBinder mLocationKit;
   @Override
   protected void onResume() {
     Intent i = new Intent(this, LocationKit.class);
@@ -127,7 +127,7 @@ LocationKit registers a boot receiver and will automatically restart on device r
     @Override
     public void onServiceConnected(ComponentName name, IBinder service) {
       mBound = true;
-      mLocationKit = (LocationKit.LKBinder)service;
+      mLocationKit = (ILocationKitBinder)service;
       try {
           mLocationKit.startWithApiToken("f0838784beb72a13", mLocationListener);
       } catch (Exception e) {
@@ -203,6 +203,9 @@ LocationKit registers a boot receiver and will automatically restart on device r
         @Override
         public void onProviderDisabled(String provider) {
 
+        }
+        @Override
+        public void void onChangedActivityMode(LKActivityMode mode) {
         }
     };
 ```
@@ -290,10 +293,10 @@ Of course this is entirely optional.
 # Query Methods
 LocationKit enables the developer to query our backend services for additional
 and current location data.  These follow a callback pattern so that the
-Activity thread will not be blocked.  All query methods use a `LKCallback<T>`
+Activity thread will not be blocked.  All query methods use a `ILocationKitCallback<T>`
 where `T` is the type of data processed. 
 
-> `LKCallback<T>` provides two methods 
+> `ILocationKitCallback<T>` provides two methods 
 ```java
  @Override
  public void onError(Exception e, String errorMessage) {
@@ -308,12 +311,12 @@ where `T` is the type of data processed.
 
 ## Get the current `LKPlace`
 
-`getCurrentPlace(final LKCallback<LKPlace> callback)`
+`getCurrentPlace(final ILocationKitCallback<LKPlace> callback)`
 
 *Use:* Returns the current place (if availble).
 
 ```java
-mLocationKit.getCurrentPlace( new LKCallback<LKPlace>() {
+mLocationKit.getCurrentPlace( new ILocationKitCallback<LKPlace>() {
     @Override
     public void onError(Exception e, String errorMessage) {
 		//error 
@@ -327,12 +330,12 @@ mLocationKit.getCurrentPlace( new LKCallback<LKPlace>() {
 ```
 
 ## Get the `LKPlace` for a location
-`getPlaceForLocation(double latitude, double longitude, final LKCallback<LKPlace> callback)`
+`getPlaceForLocation(double latitude, double longitude, final ILocationKitCallback<LKPlace> callback)`
 
 *Use:* Same As `getCurrentPlace` but allows a developer provided lat/lng
 
 ```java
-mLocationKit.getPlaceForLocation( 38.904415, -77.043190, new LKCallback<LKPlace>() {
+mLocationKit.getPlaceForLocation( 38.904415, -77.043190, new ILocationKitCallback<LKPlace>() {
     @Override
     public void onError(Exception e, String errorMessage) {
 		//error 
@@ -346,7 +349,7 @@ mLocationKit.getPlaceForLocation( 38.904415, -77.043190, new LKCallback<LKPlace>
 ```
 
 ## Search for places
-`searchForPlaces(final LKSearchRequest search, final LKCallback<List<LKPlace>> callback)`
+`searchForPlaces(final LKSearchRequest search, final ILocationKitCallback<List<LKPlace>> callback)`
 
 *Use:* Search for types of places based on an `LKSearchRequest`. If
 `LKSearchRequest` does not include lat/lng then search will default to the
@@ -356,33 +359,33 @@ current location of the device
 LKSearchRequest search = new LKSearchRequest();
 search.setCategory("Restaurants");
 search.setRadius(2000);
-mLocationKit.searchForPlaces(search, new LKCallback<List<LKPlace>> () {
+mLocationKit.searchForPlaces(search, new ILocationKitCallback<List<LKPlace>> () {
     @Override
     public void onError(Exception e, String errorMessage) {
 	    //error 
     }
 
     @Override
-    public void onReceivedData(final LKCallback<List<LKPlace>> data) {
+    public void onReceivedData(final ILocationKitCallback<List<LKPlace>> data) {
         //do something with data
     }
 });
 ```
 
 ## Get the current location
-`getCurrentLocation(final LKCallback<Location> callback)`
+`getCurrentLocation(final ILocationKitCallback<Location> callback)`
 
 *Use:* Get the current Location of the device.
 
 ```
-mLocationKit.getCurrentLocation(new LKCallback<Location> callback() {
+mLocationKit.getCurrentLocation(new ILocationKitCallback<Location> callback() {
     @Override
     public void onError(Exception e, String errorMessage) {
 	    //error 
     }
 
     @Override
-    public void onReceivedData(final LKCallback<List<LKPlace>> data) {
+    public void onReceivedData(final ILocationKitCallback<List<LKPlace>> data) {
         //do something with data
     }
 });
