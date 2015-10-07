@@ -84,7 +84,7 @@ repositories {
 	}
 }
 dependencies {
-	compile ('socialradar:locationkit:2.2.+@aar') { transitive = true }
+	compile ('socialradar:locationkit:2.6.+@aar') { transitive = true }
 }
 ```
 
@@ -205,8 +205,15 @@ LocationKit registers a boot receiver and will automatically restart on device r
 
         }
         @Override
-        public void void onChangedActivityMode(LKActivityMode mode) {
+        public void onChangedActivityMode(LKActivityMode mode) {
         }
+        /**
+        Invoked if Android Marshmallow permissions have disabled permissions.  
+        @permission is the name of the denied permission
+        */
+        @Override 
+       	public     void onPermissionDenied(String permission) {
+       	}
     };
 ```
 
@@ -235,8 +242,8 @@ Build LocationKitServiceOptions to set options
 ```
   LocationKitServiceOptions.Builder builder = new LocationKitServiceOptions.Builder();
   builder.withInterval(60*l*1000l*15l*) //send a broadcast, pending intent or invoke listener at interval with current location
-         .withVenueFilter(filter)
-         .withVenueFilter(anotherFilter) // define with LKVenueFilter to match a specific type of venue for visits.
+         .withVisitCriteria(criteria)
+         .withVisitCriteria(anotehrCriteria) // define with LKVisitCriteria to automatically create geofences beased on types of locations (e.g. Brewery).
          .withPowerLevel(LKPowerLevel.LOW)
   LocationKitServiceOptions options = builder.build();
 ```
@@ -392,6 +399,14 @@ mLocationKit.getCurrentLocation(new ILocationKitCallback<Location> callback() {
 ```
 
 # Change Log
+## 2.6.1
+<h3>October 2015</h3>
+* LKVenueFilter is deprecated use LKVisitCriteria instead
+* LKVisitCriteria allows for automatic geofence management based on criteria such as venue category, address id, venue name (e.g. Joe's Pizza) and a radius.  LKVisit events are generated as users enter and leave the geofence region.  
+* Additional improvements to auto venue detection
+* Reduced power drain in automatic mode
+* Reduced memory and CPU usage.
+
 ## 2.2.1
 <h3>September 2015</h3>
 * Updated release with new LKActivityMode, LKVenueFilter and LKPowerLevel settings.
