@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 
 # Middleman
-gem 'middleman'
+gem 'middleman', '3.4.0'
 gem 'middleman-gh-pages', '~> 0.0.3'
-gem 'middleman-syntax', '~> 2.0.0'
-gem 'middleman-autoprefixer', '~> 2.4.4'
+#gem 'middleman-syntax', '~> 2.0.0'
+#gem 'middleman-autoprefixer', '~> 2.4.4'
 gem 'rouge', '~> 1.9.0'
 gem 'redcarpet', '~> 3.3.1'
 
